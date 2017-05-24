@@ -15,7 +15,7 @@ shinyUI(navbarPage('Final Project',
                               
                               # Main panel: display plotly map
                               mainPanel(
-
+                                plotOutput("ComfortLevel")
                               )
                             )
                    ),
