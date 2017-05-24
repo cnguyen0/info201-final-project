@@ -1,7 +1,7 @@
 library(dplyr)
 library(rsconnect)
 
-# call dataframe here
+data <- read.csv('./Data/mental-heath-in-tech-2016.csv')
 
 shinyServer(function(input, output) { 
   #Steph
