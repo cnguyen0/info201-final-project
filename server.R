@@ -21,7 +21,26 @@ shinyServer(function(input, output) {
     no.mental <- filter(comfort.level, grepl("No", Mental)) %>%
       count() %>%
       as.numeric()
+    
     mental <- c(yes.mental, maybe.mental, no.mental)
+    
+    #Filtering out Physical health data
+    yes.physical <- filter(comfort.level, grepl("Yes", Physical)) %>%
+      count() %>%
+      as.numeric()
+    
+    maybe.physical <- filter(comfort.level, grepl("Maybe", Physical)) %>%
+      count() %>%
+      as.numeric()
+    
+    no.physical <- filter(comfort.level, grepl("No", Physical)) %>%
+      count() %>%
+      as.numeric()
+    
+    physical <- c(yes.physical, maybe.physical, no.physical)
+    
+    #Creating the dataframe
+    comfort.level.num <- data.frame(mental, physical)
     
     #plotting the data
     ggplot(data = comfort.level) +
