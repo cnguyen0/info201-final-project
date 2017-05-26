@@ -9,7 +9,6 @@ shinyServer(function(input, output) {
   
   #Steph
   output$ComfortLevel <- renderPlot({
-<<<<<<< HEAD
     #Takes in a two-column dataframe and counts the number of Yes, Maybe, and No responses.
     count.responses <- function(data.input) {
       data <- data.input
@@ -89,9 +88,6 @@ shinyServer(function(input, output) {
           
         }  else {}
 
-=======
-
->>>>>>> 5919bad38c44fd0367f8c9276f58bb8e75588d50
     
   })
   #End Steph
