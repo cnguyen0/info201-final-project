@@ -1,8 +1,8 @@
 library(dplyr)
 library(rsconnect)
-library(plotly)
 library(shiny)
-library(HSAUR)
+library(plotly)
+
 
 data <- read.csv('./Data/mental-heath-in-tech-2016.csv')
 
