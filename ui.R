@@ -22,7 +22,7 @@ shinyUI(navbarPage('Final Project',
                             ),
                    
                    # Create a tab panel for your map
-                   tabPanel('Steph',
+                  tabPanel('Steph',
                             titlePanel('Title 1'),
                             # Create sidebar layout
                             sidebarLayout(

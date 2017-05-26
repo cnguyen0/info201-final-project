@@ -4,11 +4,12 @@ library(shiny)
 library(ggplot2)
 library(plotly)
 
+
 data <- read.csv('./Data/mental-heath-in-tech-2016.csv')
 
 shinyServer(function(input, output) { 
-  
-  #Steph
+
+ #Steph
   output$ComfortLevel <- renderPlot({
     #Takes in a two-column dataframe and counts the number of Yes, Maybe, and No responses.
     count.responses <- function(data.input) {
