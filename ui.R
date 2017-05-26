@@ -91,6 +91,7 @@ shinyUI(navbarPage('Final Project',
                             )
                    ),
                    
+                   
                    tabPanel('Zoheb',
                             titlePanel('Title 1'),
                             # Create sidebar layout
