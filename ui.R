@@ -91,6 +91,7 @@ shinyUI(navbarPage('Final Project',
                             )
                    ),
                    
+                   
                    tabPanel('Zoheb',
                             titlePanel('Title 1'),
                             # Create sidebar layout
@@ -98,13 +99,16 @@ shinyUI(navbarPage('Final Project',
                               
                               # Side panel for controls
                               sidebarPanel(
-                                
+                                selectInput(
+                                  inputId = 'options',
+                                  label = 'select a query',
+                                  choices = c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
+                                  selected = 'anonimity'
+                                )
                               ),
                               
                               # Main panel: display plotly map
-                              mainPanel(
-                                
-                              )
+                              mainPanel(plotlyOutput('plotZoheb'))
                             )
                    )
                    
