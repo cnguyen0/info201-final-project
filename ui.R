@@ -22,14 +22,15 @@ shinyUI(navbarPage('Final Project',
                             ),
                    
                    # Create a tab panel for your map
-                   tabPanel('Steph',
+                  tabPanel('Steph',
                             titlePanel('Title 1'),
                             # Create sidebar layout
                             sidebarLayout(
                               
                               # Side panel for controls
                               sidebarPanel(
-
+                                  checkboxGroupInput(inputId = "impact", label = "Impact",
+                                                     choices = c("Negative Consequences", "Comfort Level Discussing Health"))
                               ),
                               
                               # Main panel: display plotly map
