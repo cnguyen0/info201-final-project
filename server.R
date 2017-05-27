@@ -132,6 +132,10 @@ shinyServer(function(input, output) {
     s1 <- as.numeric(sum(zoheb.data[[input$options]] == types[1]))
     s2 <- as.numeric(sum(zoheb.data[[input$options]] == types[2]))
     s3 <- as.numeric(sum(zoheb.data[[input$options]] == types[3]))
+    #
+    descriptions <- c('Is an employee\'s anonimity protected if they choose to take advantage of a mental helth treatment?','Would an employee feel comfortable discussing a mental health disorder with their coworkers?','Would an employee feel comfortable discussing a mental health disorder with their supervisor?','Do employees feel that their employer takes mental health as seriously as physical health?')
+    titles <- c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
+    dynamic.title <- data.frame(titles, descriptions)
     #returns plot
     return(
       plot_ly(
@@ -141,9 +145,10 @@ shinyServer(function(input, output) {
         type = 'bar'
       ) %>%
         layout(
-          title = list(title = ),
+          title = as.character(input$options),
           x = 'Options',
-          y = 'Number of people'
+          y = 'Number of people',
+          text = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)])
         )
     )
   })
