@@ -1,0 +1,46 @@
+[33mfff8694[m Added selectInputs for DiagnosisWillingness
+[33m8d84051[m Filter down data frames, updated DiagnosisWillingness function
+[33m0d45b09[m modified input parameters for DiagnosisWillingness
+[33m77e5618[m Merge pull request #20 from cnguyen0/kathy
+[33mef826c6[m added scatterplot
+[33m73df269[m Merge pull request #19 from cnguyen0/Stephanie
+[33m2fff6d0[m Merge branch 'master' into Stephanie
+[33m4c669f9[m committing to pull
+[33ma2f936a[m made updates
+[33m21a0a5b[m Changed SplitDiagnosisList function to NumDiagnosis
+[33m4da7c16[m Initial commit
+[33m9a45ac8[m Merge branch 'master' into kathy
+[33m03ce972[m tracking Rhistory file
+[33m13a7ae0[m Merge pull request #17 from cnguyen0/zoheb
+[33me2c3a7e[m made dynamic text, to add title
+[33m5ac807b[m Merge pull request #16 from cnguyen0/zoheb
+[33mc2b68f3[m Merge branch 'master' into zoheb
+[33m0f77f56[m up to date with master
+[33mc8583ac[m up to date with master
+[33mb27d456[m made changes
+[33m8f324a8[m Merge pull request #15 from cnguyen0/Stephanie
+[33m652919c[m removed conflict messages
+[33m910e85c[m created graph
+[33mc20449e[m created graph, to create dynamic title and add text
+[33m74ffd13[m Merge pull request #12 from cnguyen0/Stephanie
+[33m565097b[m fixed conflict
+[33mb5c4201[m added second plot
+[33m495984a[m Added physical data
+[33me31c43e[m added filtered data
+[33m5919bad[m Added physical data
+[33m6d32b78[m added filtered data
+[33mca46d65[m Merge pull request #11 from cnguyen0/Stephanie
+[33m9286f57[m Started plot
+[33m2503502[m Merge pull request #10 from cnguyen0/Stephanie
+[33mbe021c3[m Added data
+[33ma4e43df[m Merge pull request #9 from cnguyen0/megha
+[33m9487ee1[m Added intro
+[33md6c5275[m Merge pull request #8 from cnguyen0/Stephanie
+[33md5feebb[m added output for everyone in server
+[33mb2dfacd[m Added output
+[33m0958130[m Merge pull request #7 from cnguyen0/getting-started
+[33m35b4a3f[m Added the skeleton of the shiny app and assigned section to group members
+[33m3f0a7c2[m Created scripts folder and dummy file, close #5
+[33m3098355[m Added Index.rmd file
+[33m349b845[m Added data file
+[33mf16f7bb[m Initial commit

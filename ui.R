@@ -64,12 +64,12 @@ shinyUI(navbarPage('Final Project',
                               
                               # Side panel for controls
                               sidebarPanel(
-                                selectInput("data.frame", label = "Condition Status", 
-                                            choices = list("Currently Have Mental Health Disorder" = "curr.have.disorder",
-                                                           "Diagnosed by Medical Professional" = "been.diagonosed"),
-                                selectInput("comfort", label = "Comfort Level Discussing with Supervisor about", 
-                                            choices = list("Mental Health Disorder" = "mh.disorder.comfort",
-                                                           "Mental Health Issues" = "mh.issue.comfort"))
+                                #selectInput("data.frame", label = "Condition Status", 
+                                #            choices = list("Currently Have Mental Health Disorder" = "curr.have.disorder",
+                                #                           "Diagnosed by Medical Professional" = "been.diagonosed"),
+                                #selectInput("comfort", label = "Comfort Level Discussing with Supervisor about", 
+                                #            choices = list("Mental Health Disorder" = "mh.disorder.comfort",
+                                #                           "Mental Health Issues" = "mh.issue.comfort"))
                               ),
                               
                               # Main panel: display plotly map
