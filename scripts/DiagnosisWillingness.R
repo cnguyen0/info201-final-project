@@ -17,30 +17,32 @@ DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
 
 #colnames(data) <- c("diagnosis.status", "comfort.level")
 if (curr.or.pro.diag == "curr") {
-  data <- data %>% filter("Do.you.currently.have.a.mental.health.disorder." == "Yes") %>% 
-    select("If.yes..what.condition.s..have.you.been.diagnosed.with.",
-           "Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..",
-           "Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..")
+  data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes") %>% 
+    select(If.yes..what.condition.s..have.you.been.diagnosed.with.,
+           Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
+           Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..)
   colnames(data) <- c("diagnosis.status", "mh.disorder.comfort", "mh.issue.comfort")
+} 
   
-} else if (curr.or.pro.diag == "pro") { 
-  data <- data %>% filter("Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional." == "Yes") %>%
-    select("If.so..what.condition.s..were.you.diagnosed.with.",
-           "Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..",
-           "Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..")
-  colnames(data) <- c("diagnosis.status",  "mh.disorder.comfort", "mh.issue.comfort")
+if (curr.or.pro.diag == "pro") { 
+  data <- data %>% filter(Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional. == "Yes") %>%
+    select(If.so..what.condition.s..were.you.diagnosed.with.,
+           Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
+           Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..)
+  colnames(data) <- c("diagnosis.status", "mh.disorder.comfort", "mh.issue.comfort")
 }
   
-
 #create list of number of diagnosis per observation
 data$num.conditions <- sapply(data$diagnosis.status, NumDiagnosis) 
 
-plot <- plot_ly(data = data, 
-                x = ~num.conditions, 
-                y = eval(parse(text = paste("~", comfort))), 
-                color = ~diagnosis.status,
-                type = "scatter", 
-                mode = "markers",
+View(data)
+
+plot <- plot_ly(data = na.omit(data),
+                x = eval(parse(text = paste("~", comfort))),
+                y = ~num.conditions, 
+                shape = ~num.conditions,
+                type = "bar", 
+                #mode = "markers",
                 marker = list(opacity = 0.5)) %>% 
   layout(xaxis = list(title = "Number of Diagnosis"), 
          yaxis = list(title = "Comfortability talking to supervisor"))
