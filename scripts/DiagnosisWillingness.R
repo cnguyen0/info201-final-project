@@ -1,9 +1,11 @@
 library(dplyr)
+library(stringr)
 
 data <- read.csv('../Data/mental-heath-in-tech-2016.csv') #will remove later
 
 
-DiagonosisWillingness <- function(data, diagonosis.status) {
+#DiagonosisWillingness <- function(data, diagonosis.status) {
+#}
 # selects observations that currently have mental health disorder
 data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes") %>%
                  select(If.yes..what.condition.s..have.you.been.diagnosed.with.,
@@ -12,14 +14,15 @@ data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes"
 colnames(data) <- c("diagonosis.status", "comfort")
 
 #create list of dataframes of diagnosis per observation
-temp <- SplitDiagnosisList(data$diagonosis.status) 
-diagnosis.list <- sapply(data$diagonosis.status, SplitDiagnosisList) 
+temp <- NumDiagnosis(data$diagonosis.status)
+diagnosis.list <- sapply(data$diagonosis.status, NumDiagnosis)  
 
-}
+
 
 # Creates a vector of diagonosis 
 # precondition: diagonosis listed in format of "<condition 1>|<condition 2>|<condition ...>"
 #               each condition is seperated by vertical bar
-SplitDiagnosisList()litDiagnosisList <- function(input) {
-  return(stringr::str_split_fixed(input, pattern = "\\|", n = Inf))
+#SplitDiagnosis
+NumDiagnosis <- function(input) {
+  return(stringr::str_split_fixed(input, pattern = "\\|", n = Inf) %>% length())
 }
