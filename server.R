@@ -111,7 +111,7 @@ shinyServer(function(input, output) {
   output$DiagnosisWillingness <- renderPlotly({
     
     #return(DiagnosisWillingness(data, input$condition.status, input$comfort))
-    return(DiagnosisWillingness(na.omit(data), input$curr.or.pro.diag, input$comfort))
+    return(DiagnosisWillingness(data, input$curr.or.pro.diag, input$comfort))
   })
   #End Kathy
   
