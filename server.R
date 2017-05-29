@@ -6,6 +6,7 @@ library(plotly)
 
 
 data <- read.csv('./Data/mental-heath-in-tech-2016.csv')
+source("./scripts/DiagnosisWillingness.R")
 
 shinyServer(function(input, output) { 
 
@@ -107,8 +108,25 @@ shinyServer(function(input, output) {
   #End Megha
   
   #Kathy
-  output$plotname <- renderPlot({
+  output$DiagonosisWillingness <- renderPlotly({
     
+    comfort.df <- data %>% select("Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..",
+                                  "Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..")
+    colnames(comfort.df) <- c("mh.disorder.comfort", "mh.issue.comfort")
+    
+    curr.have.disorder <- data %>% filter("Do.you.currently.have.a.mental.health.disorder." == "Yes") %>% 
+                                   select("If.yes..what.condition.s..have.you.been.diagnosed.with.")
+    colnames(curr.have.disorder) <- "diagonosis.status"
+    curr.have.disorder <- data.frame(curr.have.disorder, comfort.df)
+
+
+    been.diagonosed <- data %>% filter("Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional." == "Yes") %>%
+                                      select("If.so..what.condition.s..were.you.diagnosed.with.")
+    colnames(been.diagonosed) <- "diagonosis.status"
+    been.diagonosed <- data.frame(been.diagonosed, comfort.df)
+    
+    #return(DiagonosisWillingness(data, input$condition.status, input$comfort))
+    return(DiagonosisWillingness(input$dataframe, input$comfort))
   })
   #End Kathy
   
