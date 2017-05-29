@@ -4,7 +4,6 @@ library(shiny)
 library(ggplot2)
 library(plotly)
 
-
 data <- read.csv('./Data/mental-heath-in-tech-2016.csv')
 
 shinyServer(function(input, output) { 
@@ -29,7 +28,7 @@ shinyServer(function(input, output) {
         count() %>%
         as.numeric()
       
-      mental.impact <- c(yes.mental, maybe.mental, no.mental)
+      mental <- c(yes.mental, maybe.mental, no.mental)
       
       #Filtering out Physical health data and counting it.
       yes.physical <- filter(data, grepl("Yes", Physical)) %>%
@@ -42,7 +41,7 @@ shinyServer(function(input, output) {
         count() %>%
         as.numeric()
       
-      physical.impact <- c(yes.physical, maybe.physical, no.physical)
+      physical <- c(yes.physical, maybe.physical, no.physical)
       
       #Creating the dataframe
       responses <- c("Yes", "Maybe", "No")
@@ -54,16 +53,16 @@ shinyServer(function(input, output) {
     impact.level.num <- count.responses(impact.level)
     
     #Creating functions for each plot
-    negative.impact <- function(data.input) {
-      ggplot(data = data.input) + 
-        geom_bar(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
-        ggtitle("Do you think that discussing this health issue will have negative consequences?") +
-        labs(x = "Mental Health",
-             y = "Physical Health", color = "Responses") +
-        theme_classic() +
-        xlim(0, 1000) +
-        ylim(0, 1000)
-    }
+    # negative.impact <- function(data.input) {
+    #   ggplot(data = data.input) + 
+    #     geom_bar(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
+    #     ggtitle("Do you think that discussing this health issue will have negative consequences?") +
+    #     labs(x = "Mental Health",
+    #          y = "Physical Health", color = "Responses") +
+    #     theme_classic() +
+    #     xlim(0, 1000) +
+    #     ylim(0, 1000)
+    # }
     
     interview <- data.frame(data[,41], data[,39])
     interview.num <- count.responses(interview)
@@ -79,17 +78,25 @@ shinyServer(function(input, output) {
             xlim(0, 1000) +
             ylim(0, 1000)
         } else if (input$impact == "Comfort Level Discussing Health") {
-          ggplot(data = interview.num) +
-            geom_point(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
-            ggtitle("Do you think that discussing this health issue will have negative consequences?") +
-            labs(x = "Mental Health",
-                 y = "Physical Health", color = "Responses") +
-            theme_classic() +
-            xlim(0, 1000) +
-            ylim(0, 1000)
+            ggplot(data = interview.num) +
+              geom_point(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
+              ggtitle("Would you bring up a health issue with a potential employer in an interview?") +
+              labs(x = "Mental Health",
+                   y = "Physical Health", color = "Responses") +
+              theme_classic() +
+              xlim(0, 1000) +
+              ylim(0, 1000)
           
-        }  else {}
-
+        }  else { #if (input$impact == "Negative Impact" && input$impact == "Comfort Level Discussing Health"){
+            ggplot(data = interview.num) +
+              ggtitle("Test") +
+              labs(x = "Mental Health",
+                   y = "Physical Health", color = "Responses") +
+              theme_classic() +
+              xlim(0, 1000) +
+              ylim(0, 1000) +
+              geom_point(mapping = aes(x=mental, y = physical, color = responses), size = 3) 
+        }
     
   })
   #End Steph
