@@ -30,7 +30,7 @@ shinyUI(navbarPage('Final Project',
                               # Side panel for controls
                               sidebarPanel(
                                   checkboxGroupInput(inputId = "impact", label = "Impact",
-                                                     choices = c("Negative Consequences", "Comfort Level Discussing Health"))
+                                                     choices = c("Negative Impact", "Comfort Level Discussing Health"))
                               ),
                               
                               # Main panel: display plotly map
