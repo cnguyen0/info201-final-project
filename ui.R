@@ -23,21 +23,32 @@ shinyUI(navbarPage('Final Project',
                    
                    # Create a tab panel for your map
                   tabPanel('Steph',
-                            titlePanel('Title 1'),
+                            titlePanel('Discussing Health with a Supervisor'),
                             # Create sidebar layout
                             sidebarLayout(
                               
                               # Side panel for controls
                               sidebarPanel(
-                                  checkboxGroupInput(inputId = "impact", label = "Impact",
-                                                     choices = c("Negative Impact", "Comfort Level Discussing Health"))
+                                  radioButtons(inputId = "impact", label = "Impact",
+                                                     choices = c("Negative Impact", "Comfort Level Discussing Health"), selected = "Negative Impact")
                               ),
                               
                               # Main panel: display plotly map
                               mainPanel(
                                 plotOutput("ComfortLevel")
                               )
-                            )
+                            ),
+                           hr(),
+                           p("As a supervisor, it is very important to be aware of the health of your employees.
+                              However, many employees may be holding back their health issues due to fear of
+                              it affecting their career. Based on data collected by Open Sourcing Mental Illness,
+                              almost 250 tech employees beleive that discussing a Mental Illness with their
+                              supervisor will have a negative impact, but only about 40 employees believe that 
+                              dicussing a physical ailment will have a negative impact."),
+                           p("The tables turn when the survey participant is asked if they would mention mental
+                              health in an interview.")
+
+                           
                    ),
                    
                    tabPanel('Megha',
