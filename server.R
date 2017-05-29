@@ -2,12 +2,14 @@ library(dplyr)
 library(rsconnect)
 library(shiny)
 library(ggplot2)
+library(plotly)
+
 
 data <- read.csv('./Data/mental-heath-in-tech-2016.csv')
 
 shinyServer(function(input, output) { 
-  
-  #Steph
+
+ #Steph
   output$ComfortLevel <- renderPlot({
     #Takes in a two-column dataframe and counts the number of Yes, Maybe, and No responses.
     count.responses <- function(data.input) {
@@ -111,8 +113,44 @@ shinyServer(function(input, output) {
   #End Kathy
   
   #Zoheb
-  output$plotname <- renderPlot({
+  output$plotZoheb <- renderPlotly({
     
+    #columns included : is your anonimity protected, Would you feel comfortable discussing a mental health disorder with your coworkers?, 
+    #Would you feel comfortable discussing a mental health disorder with your direct supervisor(s)?, Do you feel that your employer takes mental health as seriously as physical health?
+    zoheb.data <- data %>% select(  Is.your.anonymity.protected.if.you.choose.to.take.advantage.of.mental.health.or.substance.abuse.treatment.resources.provided.by.your.employer.,
+                                    Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.coworkers.,
+                                    Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
+                                    Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health.
+    )
+    zoheb.data <- zoheb.data %>% filter(Is.your.anonymity.protected.if.you.choose.to.take.advantage.of.mental.health.or.substance.abuse.treatment.resources.provided.by.your.employer. != '') %>%
+      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.coworkers. != '') %>%
+      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '') %>%
+      filter(Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health. != '')
+    colnames(zoheb.data) <- c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
+    #graph formation
+    types <- as.character(unique(zoheb.data[[input$options]]))
+    s1 <- as.numeric(sum(zoheb.data[[input$options]] == types[1]))
+    s2 <- as.numeric(sum(zoheb.data[[input$options]] == types[2]))
+    s3 <- as.numeric(sum(zoheb.data[[input$options]] == types[3]))
+    #
+    descriptions <- c('Is an employee\'s anonimity protected if they choose to take advantage of a mental helth treatment?','Would an employee feel comfortable discussing a mental health disorder with their coworkers?','Would an employee feel comfortable discussing a mental health disorder with their supervisor?','Do employees feel that their employer takes mental health as seriously as physical health?')
+    titles <- c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
+    dynamic.title <- data.frame(titles, descriptions)
+    #returns plot
+    return(
+      plot_ly(
+        data = zoheb.data,
+        x = unique(zoheb.data[[input$options]]),
+        y = c(s1,s2,s3),
+        type = 'bar'
+      ) %>%
+        layout(
+          title = as.character(input$options),
+          x = 'Options',
+          y = 'Number of people',
+          text = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)])
+        )
+    )
   })
   #End Zoheb
   
