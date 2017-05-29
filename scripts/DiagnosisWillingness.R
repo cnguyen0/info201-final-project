@@ -5,17 +5,17 @@ library(plotly)
 #data <- read.csv('../Data/mental-heath-in-tech-2016.csv') 
 
 
-DiagonosisWillingness <- function(data, have.condition, have.condition.list, comfort) {
+DiagonosisWillingness <- function(data.frame, comfort) {
 
 # selects observations that currently have mental health disorder
 #data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes") %>%
 #                 select(If.yes..what.condition.s..have.you.been.diagnosed.with.,
 #                        Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..)
 
-data <- data %>% filter_(have.condition == "Yes") %>%
-                 select(have.condition.list, comfort)
+#data <- data %>% filter_(condition.status[1] == "Yes") %>%
+#                 select_(condition.status[2], comfort)
 
-colnames(data) <- c("diagonosis.status", "comfort.level")
+#colnames(data) <- c("diagonosis.status", "comfort.level")
 
 #create list of number of diagnosis per observation
 data$num.conditions <- sapply(data$diagonosis.status, NumDiagnosis) 
@@ -23,9 +23,8 @@ data$num.conditions <- sapply(data$diagonosis.status, NumDiagnosis)
 
 plot <- plot_ly(data = data, 
                 x = ~num.conditions, 
-                y = ~comfort, 
-                text = ~name,
-                color = ~diagosis.status,
+                y = eval(parse(text = paste("~", comfort))), 
+                color = ~diagonosis.status,
                 type = "scatter", 
                 mode = "markers",
                 marker = list(opacity = 0.5)) %>% 
