@@ -63,10 +63,8 @@ shinyUI(navbarPage('Final Project',
                                 plotOutput("remoteCountryPlot", 
                                            hover ="plot_hover", hoverDelay = 0,
                                            click = "plot_click"),
-                                verbatimTextOutput("info"), 
                                 p(paste0("This plot shows mental health against different jobs and if a person works remotely or not.",
-                                         "By clicking on each point above, the x and y values will be displayed in the box.")),
-                                uiOutput("dynamic")
+                                         "By clicking on each point above, the x and y values will be displayed in the box."))
                               )
                             )
                    ),
