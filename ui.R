@@ -17,9 +17,13 @@ shinyUI(navbarPage('Final Project',
                                        will get deeper insight into the perceptions of mental illness in their workplace,
                                         including comfort level addressing supervisors, the effect of addressing mental 
                                        illness on career, and if any measures taken have changed their perception on
-                                       addressing mental illness."),
-                              h3("Meet the team"),
-                              img(src = "./Stephanie.jpg", height = 100, width = 100), h4("Stephanie Burd"),
+                                       addressing mental illness.")
+                            )
+                   ),
+                   
+                  #tab panel for Meet the team
+                  tabPanel("Meet The Team",
+                    mainPanel(img(src = "./Stephanie.jpg", height = 100, width = 100), h4("Stephanie Burd"),
                               br(),
                               img(src = "./Kathy.gif", height = 100, width = 100), h4("Kathy Chiu"),
                               br(),
@@ -28,15 +32,16 @@ shinyUI(navbarPage('Final Project',
                               img(src = "./Cee.jpg", height = 100, width = 100), h4("Cindy Nguyen"),
                               br(),
                               img(src = "./Zoheb.jpg", height = 100, width = 100), h4("Zoheb Sidiqui")
-                            )
-                            ),
-                   
-                   # Create a tab panel for your map
-                  tabPanel('Steph',
-                            titlePanel('Discussing Health with a Supervisor'),
-                            # Create sidebar layout
-                            sidebarLayout(
-                              
+                              )
+                  ),
+                  
+                  
+                  # Create a tab panel for your map
+                  tabPanel('Discussing Health with a Supervisor',
+                           #titlePanel('Discussing Health with a Supervisor'),
+                           # Create sidebar layout
+                           sidebarLayout(
+                             
                               # Side panel for controls
                               sidebarPanel(
                                   radioButtons(inputId = "impact", label = "Impact",
@@ -49,6 +54,7 @@ shinyUI(navbarPage('Final Project',
                               )
                             ),
                            hr(),
+                           h3("Analysis"),
                            p("As a supervisor, it is very important to be aware of the health of your employees.
                               However, many employees may be holding back their health issues due to fear of
                               it affecting their career. Based on data collected by Open Sourcing Mental Illness,
