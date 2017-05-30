@@ -2,50 +2,40 @@ library(dplyr)
 library(stringr)
 library(plotly)
 
-#data <- read.csv('../Data/mental-heath-in-tech-2016.csv') 
-
-
 DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
-
-# selects observations that currently have mental health disorder
-#data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes") %>%
-#                 select(If.yes..what.condition.s..have.you.been.diagnosed.with.,
-#                        Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..)
-
-#data <- data %>% filter_(condition.status[1] == "Yes") %>%
-#                 select_(condition.status[2], comfort)
-
-#colnames(data) <- c("diagnosis.status", "comfort.level")
-if (curr.or.pro.diag == "curr") {
-  data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes") %>% 
-    select(If.yes..what.condition.s..have.you.been.diagnosed.with.,
-           Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
-           Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..)
-  colnames(data) <- c("diagnosis.status", "mh.disorder.comfort", "mh.issue.comfort")
-} 
   
-if (curr.or.pro.diag == "pro") { 
-  data <- data %>% filter(Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional. == "Yes") %>%
-    select(If.so..what.condition.s..were.you.diagnosed.with.,
-           Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
-           Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..)
-  colnames(data) <- c("diagnosis.status", "mh.disorder.comfort", "mh.issue.comfort")
-}
+  if (curr.or.pro.diag == "curr") {
+    data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes") %>% 
+      select(If.yes..what.condition.s..have.you.been.diagnosed.with.,
+             Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
+             Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..)
+  } else if (curr.or.pro.diag == "pro") { 
+    data <- data %>% filter(Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional. == "Yes") %>%
+      select(If.so..what.condition.s..were.you.diagnosed.with.,
+             Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
+             Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..)
+  }
   
-#create list of number of diagnosis per observation
-data$num.conditions <- sapply(data$diagnosis.status, NumDiagnosis) 
+  if (comfort == "disorder") {
+    data$Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. = NULL
+  } else if (comfort == "issue") {
+    data$Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s.. = NULL
+  }
+  
+  colnames(data) <- c("diagnosis.status", "comfort") 
 
-View(data)
+  
+  #create list of number of diagnosis per observation
+  data$num.conditions <- sapply(data$diagnosis.status, NumDiagnosis) 
+  data <- group_by(data, comfort, num.conditions) %>% summarise(n = n())
 
-plot <- plot_ly(data = na.omit(data),
-                x = eval(parse(text = paste("~", comfort))),
-                y = ~num.conditions, 
-                shape = ~num.conditions,
-                type = "bar", 
-                #mode = "markers",
-                marker = list(opacity = 0.5)) %>% 
-  layout(xaxis = list(title = "Number of Diagnosis"), 
-         yaxis = list(title = "Comfortability talking to supervisor"))
+  plot <- plot_ly(data = data,
+                  x = ~num.conditions,
+                  y = ~comfort,
+                  z = ~n,
+                  type = "heatmap") %>% 
+          layout(xaxis = list(title = "Number of Diagnosis"), 
+                 yaxis = list(title = "Comfortability talking to supervisor"))
 
   return(plot)
 }
@@ -58,3 +48,5 @@ plot <- plot_ly(data = na.omit(data),
 NumDiagnosis <- function(input) {
   return(str_split_fixed(input, pattern = "\\|", n = Inf) %>% length())
 }
+
+
