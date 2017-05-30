@@ -46,12 +46,27 @@ shinyUI(navbarPage('Final Project',
                               
                               # Side panel for controls
                               sidebarPanel(
+                                sliderInput('age', 
+                                            label="Age", 
+                                            min= min(data$what.is.your.age.), max= max(data$what.is.your.age.), 
+                                            value = data$what.is.your.age., step =1),
                                 
+                                selectInput('facet.by', 
+                                            label="Facet By", 
+                                            choices =  c("what.country.do.you.live.in.", 
+                                                         "what.US.state.or.territory.do.you.live.in.", 
+                                                         "what.country.do.you.work.in.", "what.US.state.or.territory.do.you.work.in."))
                               ),
                               
                               # Main panel: display plotly map
-                              mainPanel(
-                                
+                              mainPanel("Plot",
+                                plotOutput("remoteCountryPlot", 
+                                           hover ="plot_hover", hoverDelay = 0,
+                                           click = "plot_click"),
+                                verbatimTextOutput("info"), 
+                                p(paste0("This plot shows mental health against different jobs and if a person works remotely or not.",
+                                         "By clicking on each point above, the x and y values will be displayed in the box.")),
+                                uiOutput("dynamic")
                               )
                             )
                    ),
