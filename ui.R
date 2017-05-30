@@ -19,7 +19,7 @@ shinyUI(navbarPage('Final Project',
                                        "illness on career, and if any measures taken have changed their perception on ",
                                        "addressing mental illness.")),
                               h3("Meet the team"),
-                              img(src = "./Headshots.jpg"), h4("Stephanie Burd")
+                              img(src = "./Headshots.jpg")
                             )
                             ),
                    
