@@ -8,7 +8,7 @@ shinyUI(navbarPage('Final Project',
                             
                             mainPanel(
                               p(paste0("The dataset we will be working with is “OSMI Mental Health in Tech Survey 2016” ",
-                                       "and is sourced from Kaggle (https://www.kaggle.com/osmi/mental-health-in-tech-2016).",
+                                       "and is sourced from Kaggle, (https://www.kaggle.com/osmi/mental-health-in-tech-2016).",
                                        " This dataset includes survey results for a survey completed by Open Sourcing Mental ",
                                        "Illness addressing attitudes toward mental illnesses in the tech industry. The target ",
                                        "audience of this data is supervisors or managers at tech companies. By analyzing this ",
@@ -17,7 +17,9 @@ shinyUI(navbarPage('Final Project',
                                        "will get deeper insight into the perceptions of mental illness in their workplace,",
                                        " including comfort level addressing supervisors, the effect of addressing mental ",
                                        "illness on career, and if any measures taken have changed their perception on ",
-                                       "addressing mental illness."))
+                                       "addressing mental illness.")),
+                              h3("Meet the team"),
+                              img(src = "./Headshots.jpg")
                             )
                             ),
                    
@@ -42,11 +44,18 @@ shinyUI(navbarPage('Final Project',
                            p("As a supervisor, it is very important to be aware of the health of your employees.
                               However, many employees may be holding back their health issues due to fear of
                               it affecting their career. Based on data collected by Open Sourcing Mental Illness,
-                              almost 250 tech employees beleive that discussing a Mental Illness with their
+                              almost 250 tech employees believe that discussing a mental illness with their
                               supervisor will have a negative impact, but only about 40 employees believe that 
                               dicussing a physical ailment will have a negative impact."),
                            p("The tables turn when the survey participant is asked if they would mention mental
-                              health in an interview.")
+                              health in an interview. Over 650 employees would mention a mental illness in an 
+                              interview, while only about 100 employees would mention a physical illness in an 
+                              interview."),
+                           p("Although it is impossible to draw conclusions from self-reported surveys, it still
+                              gives us insight into the respresentation and stigma of mental illness in the workplace.
+                              Human resources and project managers can use this information when considering new employees
+                              for hire, or for creating a workplace environment that will be conducive and welcoming for
+                              all employees to feel comfortable discussing mental health in the workplace.")
 
                            
                    ),
