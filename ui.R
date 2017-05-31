@@ -179,7 +179,11 @@ shinyUI(navbarPage('Final Project',
                               
                               # Main panel: display plotly map
                               mainPanel(plotlyOutput('plotZoheb'))
-                            )
+                            ),
+                            hr(),
+                            h3('Analysis'),
+                            p('test para 1'),
+                            p('test para 2')
                    )
                    
 ))
