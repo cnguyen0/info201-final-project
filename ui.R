@@ -4,37 +4,44 @@ library(plotly)
 shinyUI(navbarPage('Final Project',
                    
                    tabPanel('Introduction',
-                            titlePanel('Introduction'),
                             
-                            mainPanel(
-                              p("The dataset we will be working with is “OSMI Mental Health in Tech Survey 2016”
+                            h3("Introduction", align = "center"),
+                            
+                            p("The dataset we will be working with is “OSMI Mental Health in Tech Survey 2016”
                                        and is sourced from Kaggle, (https://www.kaggle.com/osmi/mental-health-in-tech-2016).
-                                        This dataset includes survey results for a survey completed by Open Sourcing Mental 
-                                       Illness addressing attitudes toward mental illnesses in the tech industry. The target 
-                                       audience of this data is supervisors or managers at tech companies. By analyzing this 
-                                       data, we can give supervisors and managers insight into the stigma surrounding mental 
-                                       illness in their industry, allowing them to make positive changes. The audience 
-                                       will get deeper insight into the perceptions of mental illness in their workplace,
-                                        including comfort level addressing supervisors, the effect of addressing mental 
-                                       illness on career, and if any measures taken have changed their perception on
-                                       addressing mental illness.")
-                            )
+                              This dataset includes survey results for a survey completed by Open Sourcing Mental 
+                              Illness addressing attitudes toward mental illnesses in the tech industry. The target 
+                              audience of this data is supervisors or managers at tech companies. By analyzing this 
+                              data, we can give supervisors and managers insight into the stigma surrounding mental 
+                              illness in their industry, allowing them to make positive changes. The audience 
+                              will get deeper insight into the perceptions of mental illness in their workplace,
+                              including comfort level addressing supervisors, the effect of addressing mental 
+                              illness on career, and if any measures taken have changed their perception on
+                              addressing mental illness.", align = "center"),
+                            
+                           hr(),
+                           
+                           #Meet the Team
+                           fluidRow(
+                             column(3, offset = 5, h3("Meet the Team"))
+                           ),
+                           
+                           fluidRow(
+                             column(2, offset = 3,
+                                    img(src = "./Stephanie.jpg", height = 100, width = 100), h4("Stephanie Burd")),
+                             column(2,
+                                    img(src = "./Kathy.gif", height = 100, width = 100), h4("Kathy Chiu")),
+                             column(2,
+                                    img(src = "./Megha.jpg", height = 100, width = 100), h4("Megha Goel"))
+                             ),
+                           
+                           fluidRow(
+                             column(2, offset = 4,
+                                    img(src = "./Cee.jpg", height = 100, width = 100), h4("Cindy Nguyen")),
+                             column(2,
+                                    img(src = "./Zoheb.jpg", height = 100, width = 100), h4("Zoheb Sidiqui"))
+                             )
                    ),
-                   
-                  #tab panel for Meet the team
-                  tabPanel("Meet The Team",
-                    mainPanel(img(src = "./Stephanie.jpg", height = 100, width = 100), h4("Stephanie Burd"),
-                              br(),
-                              img(src = "./Kathy.gif", height = 100, width = 100), h4("Kathy Chiu"),
-                              br(),
-                              img(src = "./Megha.jpg", height = 100, width = 100), h4("Megha Goel"),
-                              br(),
-                              img(src = "./Cee.jpg", height = 100, width = 100), h4("Cindy Nguyen"),
-                              br(),
-                              img(src = "./Zoheb.jpg", height = 100, width = 100), h4("Zoheb Sidiqui")
-                              )
-                  ),
-                  
                   
                   # Create a tab panel for your map
                   tabPanel('Discussing Health with a Supervisor',
