@@ -1,8 +1,10 @@
 library(shiny)
+library(shinythemes)
 library(plotly)
 
 shinyUI(navbarPage('Final Project',
-                   
+                   theme = shinytheme("superhero"),
+            
                    tabPanel('Introduction',
                             
                             h3("Introduction", align = "center"),
@@ -27,18 +29,18 @@ shinyUI(navbarPage('Final Project',
 
                            fluidRow(
                              column(2, offset = 3,
-                                    img(src = "./Stephanie.jpg", height = 100, width = 100), h4("Stephanie Burd")),
+                                    img(src = "./Stephanie.gif", height = 100, width = 100), h4("Stephanie Burd")),
                              column(2,
                                     img(src = "./Kathy.gif", height = 100, width = 100), h4("Kathy Chiu")),
                              column(2,
-                                    img(src = "./Megha.jpg", height = 100, width = 100), h4("Megha Goel"))
+                                    img(src = "./Megha.gif", height = 100, width = 100), h4("Megha Goel"))
                              ),
                            
                            fluidRow(
                              column(2, offset = 4,
-                                    img(src = "./Cee.jpg", height = 100, width = 100), h4("Cindy Nguyen")),
+                                    img(src = "./Cee.gif", height = 100, width = 100), h4("Cindy Nguyen")),
                              column(2,
-                                    img(src = "./Zoheb.jpg", height = 100, width = 100), h4("Zoheb Sidiqui"))
+                                    img(src = "./Zoheb.gif", height = 100, width = 100), h4("Zoheb Sidiqui"))
                              )
                    ),
                   
