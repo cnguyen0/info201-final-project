@@ -92,18 +92,23 @@ shinyUI(navbarPage('Final Project',
                    ),
                    
                    tabPanel('Kathy',
-                            titlePanel('Title 1'),
+                            titlePanel('Number of Conditions a Worker Has and \nComfort talking to Supervisor'),
                             # Create sidebar layout
                             sidebarLayout(
                               
                               # Side panel for controls
                               sidebarPanel(
-                                
+                                selectInput("curr.or.pro.diag", label = "Condition Status", 
+                                            choices = list("Currently Have Mental Health Disorder" = "curr",
+                                                           "Diagnosed by Medical Professional" = "pro")),
+                                selectInput("comfort", label = "Comfort Level Discussing with Supervisor about", 
+                                            choices = list("Mental Health Disorder" = "disorder",
+                                                           "Mental Health Issues" = "issue"))
                               ),
                               
                               # Main panel: display plotly map
                               mainPanel(
-                                
+                                plotlyOutput("DiagnosisWillingness")  
                               )
                             )
                    ),
