@@ -98,8 +98,8 @@ shinyUI(navbarPage('Final Project',
                             )
                    ),
                    
-                   tabPanel('Kathy',
-                            titlePanel('Number of Conditions a Worker Has and \nComfort talking to Supervisor'),
+                   tabPanel('Diagnoses and Comfort Speaking',
+                            titlePanel('Diagnoses and Comfort Speaking'),
                             # Create sidebar layout
                             sidebarLayout(
                               
