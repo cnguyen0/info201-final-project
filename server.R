@@ -95,8 +95,20 @@ shinyServer(function(input, output) {
   #End Steph
   
   #Cindy
-  output$PlotName <- renderPlot({
-    
+  output$familyHistory <- renderPlot({
+    has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>% filter(What.is.your.age. < 70)
+    ggplot(data = top.3.states, aes_string(input$categories)) + geom_bar()
+  })
+  
+  # general plot with those 
+  output$familyBreakdown <- renderPlot({
+    has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes')
+    ggplot(data = has.family.history, aes(Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health.)) + geom_bar()
+  })
+  
+  output$disorder <- renderPlot({
+    has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes')
+    ggplot(data = has.family.history, aes(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..)) + geom_bar()
   })
   #End Cindy
   
