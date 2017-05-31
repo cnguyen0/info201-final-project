@@ -130,14 +130,33 @@ shinyServer(function(input, output) {
     not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
       filter(What.is.your.age. < 70) %>%
       filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
-    ggplot(data = not.comfortable, aes(What.is.your.gender.)) + geom_bar()
+    
+    female <- not.comfortable %>% filter(grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
+              select(What.is.your.gender.)
+    
+    male <- not.comfortable %>% filter(!grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
+            select(What.is.your.gender.)
+    
+    gender.not.comfortable <- c(female, male)
+    
+    ggplot(data = gender.not.comfortable, aes(What.is.your.gender.)) + geom_bar()
   })
   
   output$disorder <- renderPlot({
     has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes')
     ggplot(data = has.family.history, aes(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..)) + geom_bar()
   })
-  #End Cindy
+  
+  #Filtering out Physical health data and counting it.
+  # yes.physical <- filter(data, grepl("Yes", Physical)) %>%
+  #   count() %>%
+  #   as.numeric()
+  # maybe.physical <- filter(data, grepl("Maybe", Physical)) %>%
+  #   count() %>%
+  #   as.numeric()
+  # no.physical <- filter(data, grepl("No", Physical)) %>%
+  #   count() %>%
+  #   as.numeric()
   
   #Megha
   output$plotname <- renderPlot({
