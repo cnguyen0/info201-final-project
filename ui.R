@@ -7,37 +7,44 @@ source("./scripts/DiagnosisWillingness.R")
 shinyUI(navbarPage('Final Project',
                    
                    tabPanel('Introduction',
-                            titlePanel('Introduction'),
                             
-                            mainPanel(
-                              p("The dataset we will be working with is “OSMI Mental Health in Tech Survey 2016”
+                            h3("Introduction", align = "center"),
+                            
+                            p("The dataset we will be working with is “OSMI Mental Health in Tech Survey 2016”
                                        and is sourced from Kaggle, (https://www.kaggle.com/osmi/mental-health-in-tech-2016).
-                                        This dataset includes survey results for a survey completed by Open Sourcing Mental 
-                                       Illness addressing attitudes toward mental illnesses in the tech industry. The target 
-                                       audience of this data is supervisors or managers at tech companies. By analyzing this 
-                                       data, we can give supervisors and managers insight into the stigma surrounding mental 
-                                       illness in their industry, allowing them to make positive changes. The audience 
-                                       will get deeper insight into the perceptions of mental illness in their workplace,
-                                        including comfort level addressing supervisors, the effect of addressing mental 
-                                       illness on career, and if any measures taken have changed their perception on
-                                       addressing mental illness.")
-                            )
+                              This dataset includes survey results for a survey completed by Open Sourcing Mental 
+                              Illness addressing attitudes toward mental illnesses in the tech industry. The target 
+                              audience of this data is supervisors or managers at tech companies. By analyzing this 
+                              data, we can give supervisors and managers insight into the stigma surrounding mental 
+                              illness in their industry, allowing them to make positive changes. The audience 
+                              will get deeper insight into the perceptions of mental illness in their workplace,
+                              including comfort level addressing supervisors, the effect of addressing mental 
+                              illness on career, and if any measures taken have changed their perception on
+                              addressing mental illness.", align = "center"),
+                            
+                           hr(),
+                           
+                           #Meet the Team
+                           fluidRow(
+                             column(3, offset = 5, h3("Meet the Team"))
+                           ),
+                           
+                           fluidRow(
+                             column(2, offset = 3,
+                                    img(src = "./Stephanie.jpg", height = 100, width = 100), h4("Stephanie Burd")),
+                             column(2,
+                                    img(src = "./Kathy.gif", height = 100, width = 100), h4("Kathy Chiu")),
+                             column(2,
+                                    img(src = "./Megha.jpg", height = 100, width = 100), h4("Megha Goel"))
+                             ),
+                           
+                           fluidRow(
+                             column(2, offset = 4,
+                                    img(src = "./Cee.jpg", height = 100, width = 100), h4("Cindy Nguyen")),
+                             column(2,
+                                    img(src = "./Zoheb.jpg", height = 100, width = 100), h4("Zoheb Sidiqui"))
+                             )
                    ),
-                   
-                  #tab panel for Meet the team
-                  tabPanel("Meet The Team",
-                    mainPanel(img(src = "./Stephanie.jpg", height = 100, width = 100), h4("Stephanie Burd"),
-                              br(),
-                              img(src = "./Kathy.gif", height = 100, width = 100), h4("Kathy Chiu"),
-                              br(),
-                              img(src = "./Megha.jpg", height = 100, width = 100), h4("Megha Goel"),
-                              br(),
-                              img(src = "./Cee.jpg", height = 100, width = 100), h4("Cindy Nguyen"),
-                              br(),
-                              img(src = "./Zoheb.jpg", height = 100, width = 100), h4("Zoheb Sidiqui")
-                              )
-                  ),
-                  
                   
                   # Create a tab panel for your map
                   tabPanel('Discussing Health with a Supervisor',
@@ -127,19 +134,43 @@ shinyUI(navbarPage('Final Project',
                             )
                    ),
                    
-                   tabPanel('Cindy',
-                            titlePanel('Title 1'),
-                            # Create sidebar layout
-                            sidebarLayout(
-                              
-                              # Side panel for controls
-                              sidebarPanel(
-                                
-                              ),
-                              
-                              # Main panel: display plotly map
-                              mainPanel(
-                                
+                   tabPanel('Family History of Mental Illnesses',
+                            titlePanel('Family History of Mental Illnesses'),
+                            h4('A closer look at those in the tech industry who has a family history of mental illnesses'),
+                            p('In this dataset, we will be asking and analyzing some interesting questions about those who has
+                              a family history of mental illnesses. The dataset has been filtered out so there are no empty answers. 
+                              Note: This does not necessarily mean they themselves have a form of a disorder, but rather
+                              has had a relative with a mental disorder.'),
+                            fluidRow(
+                              column(12,
+                                 sidebarLayout(
+                                   
+                                   # Side panel for controls
+                                   sidebarPanel(
+                                     p("Please select one of the questions in the drop down menu below to find about how the
+                                       questions break down within the group of those who has a family history of mental illnesses."),
+                                     selectInput(
+                                       inputId = 'categories',
+                                       label = 'Select a factor',
+                                       choices = list('Age' = 'What.is.your.age.',
+                                                      'Working Remotely' = 'Do.you.work.remotely.', 
+                                                      'Discussing mental illness' = 'Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..',
+                                                      'Employers and mental illnesses' = 'Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health.')
+                                     )
+                                   ),
+                                   
+                                   # Main panel: display plotly map
+                                   mainPanel(
+                                     plotOutput('familyHistory')
+                                   )
+                                 )
+                              )
+                            ),
+                            fluidRow(
+                              column(12,
+                                 "Talk about some sort of analysis",
+                                 plotOutput('familyBreakdown'),
+                                 plotOutput('disorder')
                               )
                             )
                    ),
