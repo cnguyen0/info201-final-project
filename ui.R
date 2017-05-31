@@ -168,9 +168,7 @@ shinyUI(navbarPage('Final Project',
                             ),
                             fluidRow(
                               column(12,
-                                 "Talk about some sort of analysis",
-                                 plotOutput('familyBreakdown'),
-                                 plotOutput('disorder')
+                                 textOutput('comfortableAnalysis')
                               )
                             )
                    ),

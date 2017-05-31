@@ -126,37 +126,60 @@ shinyServer(function(input, output) {
   })
   
   # Breaking down  
-  output$familyBreakdown <- renderPlot({
+  output$femaleBreakdown <- renderText({
     not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
       filter(What.is.your.age. < 70) %>%
       filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
     
     female <- not.comfortable %>% filter(grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
-              select(What.is.your.gender.)
+              count() %>%
+              as.numeric()
+    
+    print(female)
+  })
+  
+  output$maleBreakdown <- renderText({
+    not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
+      filter(What.is.your.age. < 70) %>%
+      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
     
     male <- not.comfortable %>% filter(!grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
-            select(What.is.your.gender.)
+      count() %>%
+      as.numeric()
     
-    gender.not.comfortable <- c(female, male)
-    
-    ggplot(data = gender.not.comfortable, aes(What.is.your.gender.)) + geom_bar()
+    print(male)
   })
   
-  output$disorder <- renderPlot({
-    has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes')
-    ggplot(data = has.family.history, aes(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..)) + geom_bar()
+  output$comfortableAnalysis <- renderText({
+    not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
+      filter(What.is.your.age. < 70) %>%
+      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
+    
+    male <- not.comfortable %>% filter(!grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
+      count() %>%
+      as.numeric()
+
+    female <- not.comfortable %>% filter(grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
+      count() %>%
+      as.numeric()
+    
+    print(paste0("It is interesting to see the results of those who do have a family history of mental illnesses.
+                                 Since mental illness has some of a presence in their life, would they not be more exposed to it and have
+                                 more experiences handling mental illness as a topic? In questions such as \'Would you feel comfortable
+                                 discussing a mental health disorder with your direct supervisors\', there was a high response rate of
+                                 I don\'t know\'s and No\'s. To break that question further, within the group of people who does have a family history
+                                 of mental illnesses and did not respond Yes to the question, there was ", female, " females and ", male, " males who may or 
+                                may not feel comfortable in talking about mental disorders with their supervisors."))
   })
+
+  # , female, " females and ", male, " males who may or may not feel comfortable in talking about mental disorders with their supervisors."
   
-  #Filtering out Physical health data and counting it.
-  # yes.physical <- filter(data, grepl("Yes", Physical)) %>%
-  #   count() %>%
-  #   as.numeric()
-  # maybe.physical <- filter(data, grepl("Maybe", Physical)) %>%
-  #   count() %>%
-  #   as.numeric()
-  # no.physical <- filter(data, grepl("No", Physical)) %>%
-  #   count() %>%
-  #   as.numeric()
+  # print(paste0("It is interesting to see the results of those who do have a family history of mental illnesses.
+  #                                Since mental illness has some of a presence in their life, would they not be more exposed to it and have
+  #                                more experiences handling mental illness as a topic? In questions such as \'Would you feel comfortable
+  #                                discussing a mental health disorder with your direct supervisors\', there was a high response rate of
+  #                                I don\'t know\'s and No\'s. To break that question further, within the group of people who does have a family history
+  #                                of mental illnesses and did not respond Yes to the question, there was ")
   
   #Megha
   output$remoteCountryPlot <- renderPlot({
