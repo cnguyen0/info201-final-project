@@ -150,7 +150,7 @@ shinyUI(navbarPage('Final Project',
                    ),
                    
                    
-                   tabPanel('Zoheb',
+                   tabPanel('Awareness issues/Stigmas about mental health',
                             titlePanel('Title 1'),
                             # Create sidebar layout
                             sidebarLayout(
