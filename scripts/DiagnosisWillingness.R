@@ -6,7 +6,9 @@ library(plotly)
 DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
   
   margin.values <- list(
-    l = 150
+    t = 50,
+    l = 150,
+    b = 50
   )
   
   # selects data focusing on either "currently diagnosed with mental health disorder" or
@@ -29,7 +31,9 @@ DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
     data$Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. = NULL
     
     margin.values <- list(
-      l = 300
+      t = 50,
+      l = 300,
+      b = 50
     )
   } else if (comfort == "issue") {
     data$Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s.. = NULL
