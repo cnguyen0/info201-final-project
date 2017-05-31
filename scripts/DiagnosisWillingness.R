@@ -4,15 +4,19 @@ library(plotly)
 
 # Creates heatmap of relationship between number of diagnosis and comfort with speaking to supervisor
 DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
-
+  
+  margin.values <- list(
+    l = 150
+  )
+  
   # selects data focusing on either "currently diagnosed with mental health disorder" or
   # "was diagnosed with mental health disorders by a professional to dataframe "data
   if (curr.or.pro.diag == "curr") {
-    data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes") %>% 
+      data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes") %>% 
       select(If.yes..what.condition.s..have.you.been.diagnosed.with.,
              Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
              Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..)
-  } else if (curr.or.pro.diag == "pro") { 
+    } else if (curr.or.pro.diag == "pro") { 
     data <- data %>% filter(Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional. == "Yes") %>%
       select(If.so..what.condition.s..were.you.diagnosed.with.,
              Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
@@ -23,6 +27,10 @@ DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
   # about mental health disorder vs mental health issues 
   if (comfort == "disorder") {
     data$Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. = NULL
+    
+    margin.values <- list(
+      l = 300
+    )
   } else if (comfort == "issue") {
     data$Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s.. = NULL
   }
@@ -33,15 +41,23 @@ DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
   data$num.conditions <- sapply(data$diagnosis.status, NumDiagnosis) 
   data <- group_by(data, comfort, num.conditions) %>% summarise(n = n())
   data <- filter(data, comfort != "")
-  View(data)
+  
+
   
   plot <- plot_ly(data = data,
                   x = ~num.conditions,
                   y = ~comfort,
                   z = ~n,
-                  type = "heatmap") %>% 
-          layout(xaxis = list(title = "Number of Diagnosis"), 
-                 yaxis = list(title = "Comfortability talking to supervisor"))
+                  type = "heatmap",
+                  mode = "markers",
+                  hoverinfo = "text",
+                  text = ~paste0("Number of Conditions: ", data$num.conditions,  "\n",
+                                  "Comfort Level: ", data$comfort,  "\n",
+                                  "Frequency: ", data$n)) %>% 
+          layout(title = "Number of diagnosed Conditions vs Comfort",
+                 xaxis = list(title = "Number of Diagnosis"), 
+                 yaxis = list(title = "Comfortability talking to supervisor"),
+                 margin = margin.values)
 
   return(plot)
 }
