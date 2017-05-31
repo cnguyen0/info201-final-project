@@ -77,17 +77,17 @@ shinyUI(navbarPage('Final Project',
                            
                    ),
                    
-                   tabPanel('Affect working remotely',
-                            titlePanel('Affect on mental health while working remotely'),
+                   tabPanel('Effect of working remotely',
+                            titlePanel('Effect on mental health while working remotely'),
                             # Create sidebar layout
                             sidebarLayout(
                               
                               # Side panel for controls
                               sidebarPanel(
-                                sliderInput('age', 
-                                            label="Age", 
-                                            min= min(data$what.is.your.age.), max= max(data$what.is.your.age.), 
-                                            value = data$what.is.your.age., step =1),
+                                #sliderInput('age', 
+                                #            label="Age", 
+                                #            min= min(data$what.is.your.age.), max= max(data$what.is.your.age.), 
+                                #            value = data$what.is.your.age., step =1),
                                 
                                 selectInput('facet.by', 
                                             label="Facet By", 
