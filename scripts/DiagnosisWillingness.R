@@ -34,16 +34,15 @@ DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
   } else if (comfort == "issue") {
     data$Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s.. = NULL
   }
-  
   colnames(data) <- c("diagnosis.status", "comfort") 
   
   #create list of number of diagnosis per observation
   data$num.conditions <- sapply(data$diagnosis.status, NumDiagnosis) 
+  
   data <- group_by(data, comfort, num.conditions) %>% summarise(n = n())
   data <- filter(data, comfort != "")
   
-
-  
+  #Make heatmap
   plot <- plot_ly(data = data,
                   x = ~num.conditions,
                   y = ~comfort,
