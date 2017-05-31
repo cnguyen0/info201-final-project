@@ -102,7 +102,6 @@ shinyServer(function(input, output) {
         }
     
   })
-  #End Steph
   
   # Family History plot, with several questions
   output$familyHistory <- renderPlot({
@@ -127,7 +126,6 @@ shinyServer(function(input, output) {
   
   output$comfortableAnalysis <- renderText({
     not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
-      filter(What.is.your.age. < 70) %>%
       filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
     
     male <- not.comfortable %>% filter(!grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
@@ -144,7 +142,11 @@ shinyServer(function(input, output) {
                                  discussing a mental health disorder with your direct supervisors\', there was a high response rate of
                                  I don\'t know\'s and No\'s. To break that question further, within the group of people who does have a family history
                                  of mental illnesses and did not respond Yes to the question, there was ", female, " females and ", male, " males who may or 
-                                may not feel comfortable in talking about mental disorders with their supervisors."))
+                                may not feel comfortable in talking about mental disorders with their supervisors. The number of males doubles the number of female.
+                                If we broke down the questions by gender, would this trend continue for males having a higher number in not sharing mental disorders
+                                in the workplace? For future considerations, this data breakdown can be further broken into more genders since gender identity is
+                                on a spectrum. In addition, another important factor is to compare by ratio rather than numbers since there is a significant number
+                                of male in the workforce rather than female, which can lead to a misleading conclusion."))
   })
   
   #Megha
