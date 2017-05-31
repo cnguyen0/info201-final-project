@@ -102,7 +102,6 @@ shinyServer(function(input, output) {
         }
     
   })
-  #End Steph
   
   # Family History plot, with several questions
   output$familyHistory <- renderPlot({
@@ -125,19 +124,30 @@ shinyServer(function(input, output) {
       labs(x = x.axis.lab, y = "Count") + ggtitle("Breaking Down Questions of Answers of Those Who Has a Family History of Mental Illnesses")
   })
   
-  # Breaking down  
-  output$familyBreakdown <- renderPlot({
+  output$comfortableAnalysis <- renderText({
     not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
-      filter(What.is.your.age. < 70) %>%
       filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
-    ggplot(data = not.comfortable, aes(What.is.your.gender.)) + geom_bar()
+    
+    male <- not.comfortable %>% filter(!grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
+      count() %>%
+      as.numeric()
+
+    female <- not.comfortable %>% filter(grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
+      count() %>%
+      as.numeric()
+    
+    print(paste0("It is interesting to see the results of those who do have a family history of mental illnesses.
+                                 Since mental illness has some of a presence in their life, would they not be more exposed to it and have
+                                 more experiences handling mental illness as a topic? In questions such as \'Would you feel comfortable
+                                 discussing a mental health disorder with your direct supervisors\', there was a high response rate of
+                                 I don\'t know\'s and No\'s. To break that question further, within the group of people who does have a family history
+                                 of mental illnesses and did not respond Yes to the question, there was ", female, " females and ", male, " males who may or 
+                                may not feel comfortable in talking about mental disorders with their supervisors. The number of males doubles the number of female.
+                                If we broke down the questions by gender, would this trend continue for males having a higher number in not sharing mental disorders
+                                in the workplace? For future considerations, this data breakdown can be further broken into more genders since gender identity is
+                                on a spectrum. In addition, another important factor is to compare by ratio rather than numbers since there is a significant number
+                                of male in the workforce rather than female, which can lead to a misleading conclusion."))
   })
-  
-  output$disorder <- renderPlot({
-    has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes')
-    ggplot(data = has.family.history, aes(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..)) + geom_bar()
-  })
-  #End Cindy
   
   #Megha
   output$remoteCountryPlot <- renderPlot({
@@ -202,7 +212,9 @@ shinyServer(function(input, output) {
         type = 'bar'
       ) %>%
         layout(
-          title = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)])
+          title = as.character(input$options),
+          x = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)]),
+          y = 'Number of people'
         )
     )
   })
