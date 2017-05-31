@@ -4,7 +4,10 @@ library(shiny)
 library(ggplot2)
 library(plotly)
 
-data <- read.csv('./Data/mental-heath-in-tech-2016.csv')
+
+
+data <- read.csv('./Data/mental-heath-in-tech-2016.csv', stringsAsFactors = FALSE)
+source("./scripts/DiagnosisWillingness.R")
 
 shinyServer(function(input, output) { 
 
@@ -114,8 +117,8 @@ shinyServer(function(input, output) {
   #End Megha
   
   #Kathy
-  output$plotname <- renderPlot({
-    
+  output$DiagnosisWillingness <- renderPlotly({
+    return(DiagnosisWillingness(data, input$curr.or.pro.diag, input$comfort))
   })
   #End Kathy
   
