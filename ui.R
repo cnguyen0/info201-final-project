@@ -1,6 +1,9 @@
 library(shiny)
 library(plotly)
 
+data <- read.csv('./Data/mental-heath-in-tech-2016.csv', stringsAsFactors = FALSE)
+source("./scripts/DiagnosisWillingness.R")
+
 shinyUI(navbarPage('Final Project',
                    
                    tabPanel('Introduction',
@@ -94,10 +97,8 @@ shinyUI(navbarPage('Final Project',
                               ),
                               
                               # Main panel: display plotly map
-                              mainPanel("Plot",
-                                plotOutput("remoteCountryPlot", 
-                                           hover ="plot_hover", hoverDelay = 0,
-                                           click = "plot_click"),
+                              mainPanel(
+                                plotOutput("remoteCountryPlot"),
                                 p(paste0("This plot shows mental health against different jobs and if a person works remotely or not.",
                                          "By clicking on each point above, the x and y values will be displayed in the box."))
                               )

@@ -112,8 +112,20 @@ shinyServer(function(input, output) {
   
   #Megha
   output$remoteCountryPlot <- renderPlot({
-    p <- ggplot(data = data, mapping = aes(x = Do.you.work.remotely., y = Do.you.currently.have.a.mental.health.disorder., label = name, 
-                                           color=Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional.)) +
+    
+    filtered <- reactive({
+      megha <- data %>% select(contains("remotely"), "Do.you.currently.have.a.mental.health.disorder.",
+                               "Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional.", 
+                               contains("age"), contains("country"), contains("US.state.or.territory")) %>%
+                colnames(c("remotely", "currently_have", "diagnosed", "age", "country_live", "country_work", "state_live", "state_work"))
+      return(megha)
+    })
+    
+    p <- ggplot(data = filtered, 
+                mapping = aes(x = remotely, 
+                              y = currently_have, 
+                              label = name, 
+                              color = diagnosed)) +
       geom_point() +
       facet_wrap(input$facet.by) +
       ggtitle("Working Remotely vs. Mental Health")
