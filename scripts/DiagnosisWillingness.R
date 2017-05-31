@@ -2,8 +2,11 @@ library(dplyr)
 library(stringr)
 library(plotly)
 
+# Creates heatmap of relationship between number of diagnosis and comfort with speaking to supervisor
 DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
-  
+
+  # selects data focusing on either "currently diagnosed with mental health disorder" or
+  # "was diagnosed with mental health disorders by a professional to dataframe "data
   if (curr.or.pro.diag == "curr") {
     data <- data %>% filter(Do.you.currently.have.a.mental.health.disorder. == "Yes") %>% 
       select(If.yes..what.condition.s..have.you.been.diagnosed.with.,
@@ -16,6 +19,8 @@ DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
              Would.you.have.been.willing.to.discuss.a.mental.health.issue.with.your.direct.supervisor.s..)
   }
   
+  # removes uneeded columns from dataframe "data" depending on if asking for comfort speaking to supervisor
+  # about mental health disorder vs mental health issues 
   if (comfort == "disorder") {
     data$Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. = NULL
   } else if (comfort == "issue") {
@@ -23,12 +28,13 @@ DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
   }
   
   colnames(data) <- c("diagnosis.status", "comfort") 
-
   
   #create list of number of diagnosis per observation
   data$num.conditions <- sapply(data$diagnosis.status, NumDiagnosis) 
   data <- group_by(data, comfort, num.conditions) %>% summarise(n = n())
-
+  data <- filter(data, comfort != "")
+  View(data)
+  
   plot <- plot_ly(data = data,
                   x = ~num.conditions,
                   y = ~comfort,
@@ -44,7 +50,6 @@ DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
 # Counts number of diagnosis per obersevation 
 # precondition: diagnosis listed in format of "<condition 1>|<condition 2>|<condition ...>"
 #               each condition is seperated by vertical bar
-#SplitDiagnosis
 NumDiagnosis <- function(input) {
   return(str_split_fixed(input, pattern = "\\|", n = Inf) %>% length())
 }
