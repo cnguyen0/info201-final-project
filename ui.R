@@ -22,10 +22,9 @@ shinyUI(navbarPage('Final Project',
                            hr(),
                            
                            #Meet the Team
-                           fluidRow(
-                             column(3, offset = 5, h3("Meet the Team"))
-                           ),
-                           
+                           h3("Meet the Team", align = "center"),
+                           h4(a("Our Github", href = "https://github.com/cnguyen0/info201-final-project"), align = "center"),
+
                            fluidRow(
                              column(2, offset = 3,
                                     img(src = "./Stephanie.jpg", height = 100, width = 100), h4("Stephanie Burd")),
@@ -43,25 +42,33 @@ shinyUI(navbarPage('Final Project',
                              )
                    ),
                   
-                  # Create a tab panel for your map
+                  # Create a tab panel
                   tabPanel('Discussing Health with a Supervisor',
-                           #titlePanel('Discussing Health with a Supervisor'),
+                           h3('Discussing Health with a Supervisor', align = "center"),
+                           p("The data that is represented on this page are responses to two questions regarding
+                             employee mental and physical health. The first question asked if employees feel there
+                             might be negative consequences for mentioning mental or physical health in the workplace. The
+                             second question focuses on if an employee would bring up mental or physical health in an
+                             interview with a potential employer."),
+                           br(),
+                           
                            # Create sidebar layout
                            sidebarLayout(
                              
                               # Side panel for controls
                               sidebarPanel(
-                                  radioButtons(inputId = "impact", label = "Impact",
+                                  p("Please select a factor to toggle between comfort level discussing health and perceived negative impact.",
+                                    align = "center"),
+                                  radioButtons(inputId = "impact", label = "Select a Factor",
                                                      choices = c("Negative Impact", "Comfort Level Discussing Health"), selected = "Negative Impact")
                               ),
-                              
                               # Main panel: display plotly map
                               mainPanel(
                                 plotOutput("ComfortLevel")
                               )
                             ),
                            hr(),
-                           h3("Analysis"),
+                           h3("Analysis", align = "center"),
                            p("As a supervisor, it is very important to be aware of the health of your employees.
                               However, many employees may be holding back their health issues due to fear of
                               it affecting their career. Based on data collected by Open Sourcing Mental Illness,
