@@ -20,7 +20,7 @@ shinyServer(function(input, output) {
   #End Cindy
   
   #Megha
-  output$plotname <- remoteCountryPlot({
+  output$remoteCountryPlot <- renderPlot({
     p <- ggplot(data = data, mapping = aes(x = Do.you.work.remotely., y = Do.you.currently.have.a.mental.health.disorder., label = name, 
                                            color=Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional.)) +
       geom_point() +
