@@ -39,20 +39,20 @@ DiagnosisWillingness <- function(data, curr.or.pro.diag, comfort) {
   #create list of number of diagnosis per observation
   data$num.conditions <- sapply(data$diagnosis.status, NumDiagnosis) 
   
-  data <- group_by(data, comfort, num.conditions) %>% summarise(n = n())
+  data <- group_by(data, comfort, num.conditions) %>% summarise(frequency = n())
   data <- filter(data, comfort != "")
   
   #Make heatmap
   plot <- plot_ly(data = data,
                   x = ~num.conditions,
                   y = ~comfort,
-                  z = ~n,
+                  z = ~frequency, 
                   type = "heatmap",
                   mode = "markers",
                   hoverinfo = "text",
                   text = ~paste0("Number of Conditions: ", data$num.conditions,  "\n",
                                   "Comfort Level: ", data$comfort,  "\n",
-                                  "Frequency: ", data$n)) %>% 
+                                  "Frequency: ", data$frequency)) %>% 
           layout(title = "Number of diagnosed Conditions vs Comfort",
                  xaxis = list(title = "Number of Diagnosis"), 
                  yaxis = list(title = "Comfortability talking to supervisor"),
