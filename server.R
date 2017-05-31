@@ -125,31 +125,6 @@ shinyServer(function(input, output) {
       labs(x = x.axis.lab, y = "Count") + ggtitle("Breaking Down Questions of Answers of Those Who Has a Family History of Mental Illnesses")
   })
   
-  # Breaking down  
-  output$femaleBreakdown <- renderText({
-    not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
-      filter(What.is.your.age. < 70) %>%
-      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
-    
-    female <- not.comfortable %>% filter(grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
-              count() %>%
-              as.numeric()
-    
-    print(female)
-  })
-  
-  output$maleBreakdown <- renderText({
-    not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
-      filter(What.is.your.age. < 70) %>%
-      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
-    
-    male <- not.comfortable %>% filter(!grepl("f", What.is.your.gender., ignore.case = TRUE)) %>% 
-      count() %>%
-      as.numeric()
-    
-    print(male)
-  })
-  
   output$comfortableAnalysis <- renderText({
     not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
       filter(What.is.your.age. < 70) %>%
@@ -171,15 +146,6 @@ shinyServer(function(input, output) {
                                  of mental illnesses and did not respond Yes to the question, there was ", female, " females and ", male, " males who may or 
                                 may not feel comfortable in talking about mental disorders with their supervisors."))
   })
-
-  # , female, " females and ", male, " males who may or may not feel comfortable in talking about mental disorders with their supervisors."
-  
-  # print(paste0("It is interesting to see the results of those who do have a family history of mental illnesses.
-  #                                Since mental illness has some of a presence in their life, would they not be more exposed to it and have
-  #                                more experiences handling mental illness as a topic? In questions such as \'Would you feel comfortable
-  #                                discussing a mental health disorder with your direct supervisors\', there was a high response rate of
-  #                                I don\'t know\'s and No\'s. To break that question further, within the group of people who does have a family history
-  #                                of mental illnesses and did not respond Yes to the question, there was ")
   
   #Megha
   output$remoteCountryPlot <- renderPlot({
@@ -244,7 +210,9 @@ shinyServer(function(input, output) {
         type = 'bar'
       ) %>%
         layout(
-          title = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)])
+          title = as.character(input$options),
+          x = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)]),
+          y = 'Number of people'
         )
     )
   })
