@@ -244,9 +244,7 @@ shinyServer(function(input, output) {
         type = 'bar'
       ) %>%
         layout(
-          title = as.character(input$options),
-          x = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)]),
-          y = 'Number of people'
+          title = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)])
         )
     )
   })
