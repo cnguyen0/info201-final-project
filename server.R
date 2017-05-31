@@ -5,6 +5,7 @@ library(ggplot2)
 library(plotly)
 
 
+
 data <- read.csv('./Data/mental-heath-in-tech-2016.csv', stringsAsFactors = FALSE)
 source("./scripts/DiagnosisWillingness.R")
 
@@ -30,7 +31,7 @@ shinyServer(function(input, output) {
         count() %>%
         as.numeric()
       
-      mental.impact <- c(yes.mental, maybe.mental, no.mental)
+      mental <- c(yes.mental, maybe.mental, no.mental)
       
       #Filtering out Physical health data and counting it.
       yes.physical <- filter(data, grepl("Yes", Physical)) %>%
@@ -43,7 +44,7 @@ shinyServer(function(input, output) {
         count() %>%
         as.numeric()
       
-      physical.impact <- c(yes.physical, maybe.physical, no.physical)
+      physical <- c(yes.physical, maybe.physical, no.physical)
       
       #Creating the dataframe
       responses <- c("Yes", "Maybe", "No")
@@ -55,16 +56,16 @@ shinyServer(function(input, output) {
     impact.level.num <- count.responses(impact.level)
     
     #Creating functions for each plot
-    negative.impact <- function(data.input) {
-      ggplot(data = data.input) + 
-        geom_bar(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
-        ggtitle("Do you think that discussing this health issue will have negative consequences?") +
-        labs(x = "Mental Health",
-             y = "Physical Health", color = "Responses") +
-        theme_classic() +
-        xlim(0, 1000) +
-        ylim(0, 1000)
-    }
+    # negative.impact <- function(data.input) {
+    #   ggplot(data = data.input) + 
+    #     geom_bar(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
+    #     ggtitle("Do you think that discussing this health issue will have negative consequences?") +
+    #     labs(x = "Mental Health",
+    #          y = "Physical Health", color = "Responses") +
+    #     theme_classic() +
+    #     xlim(0, 1000) +
+    #     ylim(0, 1000)
+    # }
     
     interview <- data.frame(data[,41], data[,39])
     interview.num <- count.responses(interview)
@@ -80,17 +81,25 @@ shinyServer(function(input, output) {
             xlim(0, 1000) +
             ylim(0, 1000)
         } else if (input$impact == "Comfort Level Discussing Health") {
-          ggplot(data = interview.num) +
-            geom_point(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
-            ggtitle("Do you think that discussing this health issue will have negative consequences?") +
-            labs(x = "Mental Health",
-                 y = "Physical Health", color = "Responses") +
-            theme_classic() +
-            xlim(0, 1000) +
-            ylim(0, 1000)
+            ggplot(data = interview.num) +
+              geom_point(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
+              ggtitle("Would you bring up a health issue with a potential employer in an interview?") +
+              labs(x = "Mental Health",
+                   y = "Physical Health", color = "Responses") +
+              theme_classic() +
+              xlim(0, 1000) +
+              ylim(0, 1000)
           
-        }  else {}
-
+        }  else { #if (input$impact == "Negative Impact" && input$impact == "Comfort Level Discussing Health"){
+            ggplot(data = interview.num) +
+              ggtitle("Test") +
+              labs(x = "Mental Health",
+                   y = "Physical Health", color = "Responses") +
+              theme_classic() +
+              xlim(0, 1000) +
+              ylim(0, 1000) +
+              geom_point(mapping = aes(x=mental, y = physical, color = responses), size = 3) 
+        }
     
   })
   #End Steph
@@ -133,8 +142,8 @@ shinyServer(function(input, output) {
     s1 <- as.numeric(sum(zoheb.data[[input$options]] == types[1]))
     s2 <- as.numeric(sum(zoheb.data[[input$options]] == types[2]))
     s3 <- as.numeric(sum(zoheb.data[[input$options]] == types[3]))
-    #
-    descriptions <- c('Is an employee\'s anonimity protected if they choose to take advantage of a mental helth treatment?','Would an employee feel comfortable discussing a mental health disorder with their coworkers?','Would an employee feel comfortable discussing a mental health disorder with their supervisor?','Do employees feel that their employer takes mental health as seriously as physical health?')
+    #dynamic titles
+    descriptions <- c('Is an employee\'s anonimity protected if they choose to take advantage of a mental helth treatment?','Do employees feel comfortable discussing a mental health disorder with their coworkers?','Do employees feel comfortable discussing a mental health disorder with their supervisor?','Do employees feel that their employer takes mental health as seriously as physical health?')
     titles <- c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
     dynamic.title <- data.frame(titles, descriptions)
     #returns plot
@@ -147,9 +156,8 @@ shinyServer(function(input, output) {
       ) %>%
         layout(
           title = as.character(input$options),
-          x = 'Options',
-          y = 'Number of people',
-          text = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)])
+          x = as.character(dynamic.title$descriptions[dynamic.title$titles == as.character(input$options)]),
+          y = 'Number of people'
         )
     )
   })
