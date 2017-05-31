@@ -177,7 +177,7 @@ shinyUI(navbarPage('Final Project',
                    
                    
                    tabPanel('Awareness issues/Stigmas about mental health',
-                            titlePanel('Title 1'),
+                            titlePanel('Graph options'),
                             # Create sidebar layout
                             sidebarLayout(
                               
@@ -185,7 +185,7 @@ shinyUI(navbarPage('Final Project',
                               sidebarPanel(
                                 selectInput(
                                   inputId = 'options',
-                                  label = 'select a query',
+                                  label = 'Select information that you want to view',
                                   choices = c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
                                   selected = 'anonimity'
                                 )
