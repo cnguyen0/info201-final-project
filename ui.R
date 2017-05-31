@@ -74,8 +74,8 @@ shinyUI(navbarPage('Final Project',
                            
                    ),
                    
-                   tabPanel('Megha',
-                            titlePanel('Title 1'),
+                   tabPanel('Affect working remotely',
+                            titlePanel('Affect on mental health while working remotely'),
                             # Create sidebar layout
                             sidebarLayout(
                               
