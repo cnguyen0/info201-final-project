@@ -7,7 +7,7 @@ shinyUI(navbarPage('Final Project',
                             titlePanel('Introduction'),
                             
                             mainPanel(
-                              p("The dataset we will be working with is “OSMI Mental Health in Tech Survey 2016”
+                              p("The dataset we will be working with is \"OSMI Mental Health in Tech Survey 2016\"
                                        and is sourced from Kaggle, (https://www.kaggle.com/osmi/mental-health-in-tech-2016).
                                         This dataset includes survey results for a survey completed by Open Sourcing Mental 
                                        Illness addressing attitudes toward mental illnesses in the tech industry. The target 
@@ -113,19 +113,43 @@ shinyUI(navbarPage('Final Project',
                             )
                    ),
                    
-                   tabPanel('Cindy',
-                            titlePanel('Title 1'),
-                            # Create sidebar layout
-                            sidebarLayout(
-                              
-                              # Side panel for controls
-                              sidebarPanel(
-                                
-                              ),
-                              
-                              # Main panel: display plotly map
-                              mainPanel(
-                                
+                   tabPanel('Family History of Mental Illnesses',
+                            titlePanel('Family History of Mental Illnesses'),
+                            h4('A closer look at those in the tech industry who has a family history of mental illnesses'),
+                            p('In this dataset, we will be asking and analyzing some interesting questions about those who has
+                              a family history of mental illnesses. The dataset has been filtered out so there are no empty answers. 
+                              Note: This does not necessarily mean they themselves have a form of a disorder, but rather
+                              has had a relative with a mental disorder.'),
+                            fluidRow(
+                              column(12,
+                                 sidebarLayout(
+                                   
+                                   # Side panel for controls
+                                   sidebarPanel(
+                                     p("Please select one of the questions in the drop down menu below to find about how the
+                                       questions break down within the group of those who has a family history of mental illnesses."),
+                                     selectInput(
+                                       inputId = 'categories',
+                                       label = 'Select a factor',
+                                       choices = list('Age' = 'What.is.your.age.',
+                                                      'Working Remotely' = 'Do.you.work.remotely.', 
+                                                      'Discussing mental illness' = 'Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..',
+                                                      'Employers and mental illnesses' = 'Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health.')
+                                     )
+                                   ),
+                                   
+                                   # Main panel: display plotly map
+                                   mainPanel(
+                                     plotOutput('familyHistory')
+                                   )
+                                 )
+                              )
+                            ),
+                            fluidRow(
+                              column(12,
+                                 "Talk about some sort of analysis",
+                                 plotOutput('familyBreakdown'),
+                                 plotOutput('disorder')
                               )
                             )
                    ),

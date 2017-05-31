@@ -104,9 +104,38 @@ shinyServer(function(input, output) {
   })
   #End Steph
   
-  #Cindy
-  output$PlotName <- renderPlot({
+  # Family History plot, with several questions
+  output$familyHistory <- renderPlot({
+    has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
+                                  filter(What.is.your.age. < 70) %>%
+                                  filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '') %>%
+                                  filter(Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health. != '')
+
+    if (input$categories == 'What.is.your.age.') {
+      x.axis.lab = 'What is your age?'
+    } else if (input$categories == 'Do.you.work.remotely.') {
+      x.axis.lab = 'Do you work remotely?'
+    } else if (input$categories == 'Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..') {
+      x.axis.lab = 'Would you feel comfortable discussing a mental health disorder with your direct supervisors?'
+    } else {
+     x.axis.lab = 'Do you feel that your employer takes mental health as seriously as physical health?'
+    }
     
+    ggplot(data = has.family.history, aes_string(input$categories)) + geom_bar() + 
+      labs(x = x.axis.lab, y = "Count") + ggtitle("Breaking Down Questions of Answers of Those Who Has a Family History of Mental Illnesses")
+  })
+  
+  # Breaking down  
+  output$familyBreakdown <- renderPlot({
+    not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
+      filter(What.is.your.age. < 70) %>%
+      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
+    ggplot(data = not.comfortable, aes(What.is.your.gender.)) + geom_bar()
+  })
+  
+  output$disorder <- renderPlot({
+    has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes')
+    ggplot(data = has.family.history, aes(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..)) + geom_bar()
   })
   #End Cindy
   
