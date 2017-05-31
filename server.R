@@ -104,7 +104,7 @@ shinyServer(function(input, output) {
   })
   #End Steph
   
-  #Cindy
+  # Family History plot, with several questions
   output$familyHistory <- renderPlot({
     has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
                                   filter(What.is.your.age. < 70) %>%
@@ -125,10 +125,12 @@ shinyServer(function(input, output) {
       labs(x = x.axis.lab, y = "Count") + ggtitle("Breaking Down Questions of Answers of Those Who Has a Family History of Mental Illnesses")
   })
   
-  # general plot with those 
+  # Breaking down  
   output$familyBreakdown <- renderPlot({
-    has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes')
-    ggplot(data = has.family.history, aes(Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health.)) + geom_bar()
+    not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
+      filter(What.is.your.age. < 70) %>%
+      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
+    ggplot(data = not.comfortable, aes(What.is.your.gender.)) + geom_bar()
   })
   
   output$disorder <- renderPlot({
