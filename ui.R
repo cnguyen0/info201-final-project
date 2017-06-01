@@ -232,8 +232,14 @@ shinyUI(navbarPage('Final Project',
                             ),
                             hr(),
                             h3('Analysis'),
-                            p('test para 1'),
-                            p('test para 2')
+                            p('Compared to physical health, there has always been a general lack of awareness concerning mental health. 
+                               This is fairly evident from the various graphs as majority of the people, in each case, were unsure 
+                               about their mental health related privileges.'),
+                            p('Another important assessment to be made from these graphs is that there isn’t much difference in the number of 
+                               people who answered yes in the comfortability of discussing a mental health issue were almost the same as the number 
+                               of people who answered no.'),
+                            p('This means that a large population of the tech industry treats mental health as an unimportant aspect of life or doesn’t 
+                               give it enough regard as much as it does physical health.')
                    )
                    
 ))
