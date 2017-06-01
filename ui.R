@@ -146,7 +146,7 @@ shinyUI(navbarPage('Final Project',
                             
                    ),
                    
-                   tabPanel('Kathy',
+                   tabPanel('Diagnoses and Comfort',
                             titlePanel('Number of Conditions a Worker Has and \nComfort talking to Supervisor'),
                             p("In this dataset, we'll be looking at people who have been diagnosed or currently diagnosed with a 
                                mental health disorder and how comfortable they are discussing about mental health with their supervisors.
