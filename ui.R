@@ -123,6 +123,13 @@ shinyUI(navbarPage('Final Project',
                    
                    tabPanel('Diagnoses and Comfort Speaking',
                             titlePanel('Diagnoses and Comfort Speaking'),
+                              
+                              p("In this dataset, we'll be looking at people who have been diagnosed or currently diagnosed with a 
+                                mental health disorder and how comfortable they are discussing about mental health with their supervisors.
+                                We'll also focus on whether the number of mental health conditions a person is diagnosed, and whether the 
+                                topic of discussion is on mental health disorders or mental health issues, has any effects on this comfort."),
+                              br(),
+                            
                             # Create sidebar layout
                             sidebarLayout(
                               
@@ -138,7 +145,29 @@ shinyUI(navbarPage('Final Project',
                               
                               # Main panel: display plotly map
                               mainPanel(
-                                plotlyOutput("DiagnosisWillingness")  
+                                plotlyOutput("DiagnosisWillingness"),
+                                hr(),
+                                p("From this dataset of about 1400 people, almost 600 people reported be currently
+                                  diagnosed with at least one mental health disorder, and about half of the people 
+                                  surveyed were diagnosed with at least one mental health disorder by a medical professional.
+                                  However, there is generally a higher number of people with 1 to 3 diagnoses as opposed to people
+                                  with 3 or more diagnoses. Therefore it cannot be concluded that there is a relationship between 
+                                  the number of diagnoses and a person's comfort speaking to a supervisor about mental health disorders
+                                  and issues."),
+                                br(),
+                                p("In the case of whether someone is comfortable with discussing based on the topic of either mental health disorders
+                                   or mental health issues, the dataset did not give a definition for what is a mental health disorder and issue.
+                                   However: "),
+                                br(),
+                                p("When asked, \"Would you feel comfortable discussing a mental health disorder with your direct supervisor(s)?\", 
+                                  a majority felt they were comfortable discussing with either \"some of their previous employers\" 
+                                  or \"none of their previous employers.\""),
+                                p("When asked, \"Would you have been willing to discuss a mental health issue with your direct supervisor(s)?\",
+                                   there's is generally a mixed distribution between the \"Yes,\" \"No,\" and \"Maybe's,\" but slight lean towards \"Yes\" and \"Maybe.\""),
+                                br(),
+                                p("Since much of the data used is qualitative data, it's difficult to judge its accuracy. However, the data still allows
+                                   for employers to have some insight on how employees feel about discussing mental health with supervisors, and how to
+                                   make the workplace a safer environment for such discussion.")
                               )
                             )
                    ),
