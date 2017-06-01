@@ -1,63 +1,79 @@
 library(shiny)
+library(shinythemes)
 library(plotly)
 
 data <- read.csv('./Data/mental-heath-in-tech-2016.csv', stringsAsFactors = FALSE)
 source("./scripts/DiagnosisWillingness.R")
 
 shinyUI(navbarPage('Final Project',
-                   
+                   theme = shinytheme("superhero"),
+            
                    tabPanel('Introduction',
-                            titlePanel('Introduction'),
                             
-                            mainPanel(
-                              p("The dataset we will be working with is “OSMI Mental Health in Tech Survey 2016”
+                            h3("Introduction", align = "center"),
+                            
+                            p("The dataset we will be working with is “OSMI Mental Health in Tech Survey 2016”
                                        and is sourced from Kaggle, (https://www.kaggle.com/osmi/mental-health-in-tech-2016).
-                                        This dataset includes survey results for a survey completed by Open Sourcing Mental 
-                                       Illness addressing attitudes toward mental illnesses in the tech industry. The target 
-                                       audience of this data is supervisors or managers at tech companies. By analyzing this 
-                                       data, we can give supervisors and managers insight into the stigma surrounding mental 
-                                       illness in their industry, allowing them to make positive changes. The audience 
-                                       will get deeper insight into the perceptions of mental illness in their workplace,
-                                        including comfort level addressing supervisors, the effect of addressing mental 
-                                       illness on career, and if any measures taken have changed their perception on
-                                       addressing mental illness.")
-                            )
+                              This dataset includes survey results for a survey completed by Open Sourcing Mental 
+                              Illness addressing attitudes toward mental illnesses in the tech industry. The target 
+                              audience of this data is supervisors or managers at tech companies. By analyzing this 
+                              data, we can give supervisors and managers insight into the stigma surrounding mental 
+                              illness in their industry, allowing them to make positive changes. The audience 
+                              will get deeper insight into the perceptions of mental illness in their workplace,
+                              including comfort level addressing supervisors, the effect of addressing mental 
+                              illness on career, and if any measures taken have changed their perception on
+                              addressing mental illness.", align = "center"),
+                            
+                           hr(),
+                           
+                           #Meet the Team
+                           h3("Meet the Team", align = "center"),
+                           h4(a("Our Github", href = "https://github.com/cnguyen0/info201-final-project"), align = "center"),
+
+                           fluidRow(
+                             column(2, offset = 3,
+                                    img(src = "./Stephanie.gif", height = 100, width = 100), h4("Stephanie Burd")),
+                             column(2,
+                                    img(src = "./Kathy.gif", height = 100, width = 100), h4("Kathy Chiu")),
+                             column(2,
+                                    img(src = "./Megha.gif", height = 100, width = 100), h4("Megha Goel"))
+                             ),
+                           
+                           fluidRow(
+                             column(2, offset = 4,
+                                    img(src = "./Cee.gif", height = 100, width = 100), h4("Cindy Nguyen")),
+                             column(2,
+                                    img(src = "./Zoheb.gif", height = 100, width = 100), h4("Zoheb Sidiqui"))
+                             )
                    ),
-                   
-                  #tab panel for Meet the team
-                  tabPanel("Meet The Team",
-                    mainPanel(img(src = "./Stephanie.jpg", height = 100, width = 100), h4("Stephanie Burd"),
-                              br(),
-                              img(src = "./Kathy.gif", height = 100, width = 100), h4("Kathy Chiu"),
-                              br(),
-                              img(src = "./Megha.jpg", height = 100, width = 100), h4("Megha Goel"),
-                              br(),
-                              img(src = "./Cee.jpg", height = 100, width = 100), h4("Cindy Nguyen"),
-                              br(),
-                              img(src = "./Zoheb.jpg", height = 100, width = 100), h4("Zoheb Sidiqui")
-                              )
-                  ),
                   
-                  
-                  # Create a tab panel for your map
+                  # Create a tab panel
                   tabPanel('Discussing Health with a Supervisor',
-                           #titlePanel('Discussing Health with a Supervisor'),
+                           h3('Discussing Health with a Supervisor', align = "center"),
+                           p("The data that is represented on this page are responses to two questions regarding
+                             employee mental and physical health. The first question asked if employees feel there
+                             might be negative consequences for mentioning mental or physical health in the workplace. The
+                             second question focuses on if an employee would bring up mental or physical health in an
+                             interview with a potential employer."),
+                           br(),
+                           
                            # Create sidebar layout
                            sidebarLayout(
                              
                               # Side panel for controls
                               sidebarPanel(
-                                  radioButtons(inputId = "impact", label = "Impact",
+                                  p("Please select a factor to toggle between comfort level discussing health and perceived negative impact.",
+                                    align = "center"),
+                                  radioButtons(inputId = "impact", label = "Select a Factor",
                                                      choices = c("Negative Impact", "Comfort Level Discussing Health"), selected = "Negative Impact")
                               ),
-                              
                               # Main panel: display plotly map
                               mainPanel(
                                 plotOutput("ComfortLevel")
                               )
                             ),
                            hr(),
-                           h3("Analysis"),
+                           h3("Analysis", align = "center"),
                            p("As a supervisor, it is very important to be aware of the health of your employees.
                               However, many employees may be holding back their health issues due to fear of
                               it affecting their career. Based on data collected by Open Sourcing Mental Illness,
@@ -84,21 +100,19 @@ shinyUI(navbarPage('Final Project',
                               
                               # Side panel for controls
                               sidebarPanel(
-                                #sliderInput('age', 
-                                #            label="Age", 
-                                #            min= min(data$what.is.your.age.), max= max(data$what.is.your.age.), 
-                                #            value = data$what.is.your.age., step =1),
                                 
                                 selectInput('facet.by', 
                                             label="Facet By", 
-                                            choices =  c("what.country.do.you.live.in.", 
-                                                         "what.US.state.or.territory.do.you.live.in.", 
-                                                         "what.country.do.you.work.in.", "what.US.state.or.territory.do.you.work.in."))
+                                            choices =  c("Works Remotely" = "remotely",
+                                                        "Country- living in" = "country_live", 
+                                                         "US State - living in" = "state_live", 
+                                                         "Country- working in" = "country_work", 
+                                                         "US State- working in" = "state_work"))
                               ),
                               
                               # Main panel: display plotly map
                               mainPanel(
-                                plotOutput("remoteCountryPlot"),
+                                plotlyOutput("remoteCountryPlot"),
                                 p(paste0("This plot shows mental health against different jobs and if a person works remotely or not.",
                                          "By clicking on each point above, the x and y values will be displayed in the box."))
                               )
@@ -127,26 +141,50 @@ shinyUI(navbarPage('Final Project',
                             )
                    ),
                    
-                   tabPanel('Cindy',
-                            titlePanel('Title 1'),
-                            # Create sidebar layout
-                            sidebarLayout(
-                              
-                              # Side panel for controls
-                              sidebarPanel(
-                                
-                              ),
-                              
-                              # Main panel: display plotly map
-                              mainPanel(
-                                
+                   tabPanel('Family History of Mental Illnesses',
+                            titlePanel('Family History of Mental Illnesses'),
+                            h4('A closer look at those in the tech industry who has a family history of mental illnesses'),
+                            p('In this dataset, we will be asking and analyzing some interesting questions about those who has
+                              a family history of mental illnesses. The dataset has been filtered out so there are no empty answers. 
+                              Note: This does not necessarily mean they themselves have a form of a disorder, but rather
+                              has had a relative with a mental disorder.'),
+                            fluidRow(
+                              column(12,
+                                 sidebarLayout(
+                                   
+                                   # Side panel for controls
+                                   sidebarPanel(
+                                     p("Please select one of the questions in the drop down menu below to find about how the
+                                       questions break down within the group of those who has a family history of mental illnesses."),
+                                     selectInput(
+                                       inputId = 'categories',
+                                       label = 'Select a factor',
+                                       choices = list('Age' = 'What.is.your.age.',
+                                                      'Working Remotely' = 'Do.you.work.remotely.', 
+                                                      'Discussing mental illness' = 'Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..',
+                                                      'Employers and mental illnesses' = 'Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health.')
+                                     )
+                                   ),
+                                   
+                                   # Main panel: display plotly map
+                                   mainPanel(
+                                     plotOutput('familyHistory')
+                                   )
+                                 )
+                              )
+                            ),
+                            fluidRow(
+                              column(12,
+                                 "Talk about some sort of analysis",
+                                 plotOutput('familyBreakdown'),
+                                 plotOutput('disorder')
                               )
                             )
                    ),
                    
                    
                    tabPanel('Awareness issues/Stigmas about mental health',
-                            titlePanel('Title 1'),
+                            titlePanel('Graph options'),
                             # Create sidebar layout
                             sidebarLayout(
                               
@@ -154,15 +192,19 @@ shinyUI(navbarPage('Final Project',
                               sidebarPanel(
                                 selectInput(
                                   inputId = 'options',
-                                  label = 'select a query',
-                                  choices = c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
-                                  selected = 'anonimity'
+                                  label = 'Select information that you want to view',
+                                  choices = c('anonymity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
+                                  selected = 'anonymity'
                                 )
                               ),
                               
                               # Main panel: display plotly map
                               mainPanel(plotlyOutput('plotZoheb'))
-                            )
+                            ),
+                            hr(),
+                            h3('Analysis'),
+                            p('test para 1'),
+                            p('test para 2')
                    )
                    
 ))
