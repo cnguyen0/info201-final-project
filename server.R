@@ -149,7 +149,6 @@ shinyServer(function(input, output) {
                                 of male in the workforce rather than female, which can lead to a misleading conclusion."))
   })
   
-  #Megha
   output$remoteCountryPlot <- renderPlot({
     
     filtered <- reactive({
@@ -171,7 +170,6 @@ shinyServer(function(input, output) {
     
     return(p)
   })
-  #End Megha
   
   #Kathy
   output$DiagnosisWillingness <- renderPlotly({
