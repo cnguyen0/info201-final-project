@@ -119,8 +119,15 @@ shinyUI(navbarPage('Final Project',
                             )
                    ),
                    
-                   tabPanel('Kathy',
-                            titlePanel('Number of Conditions a Worker Has and \nComfort talking to Supervisor'),
+                   tabPanel('Diagnoses and Comfort Speaking',
+                            titlePanel('Diagnoses and Comfort Speaking'),
+                              
+                              p("In this dataset, we'll be looking at people who have been diagnosed or currently diagnosed with a 
+                                mental health disorder and how comfortable they are discussing about mental health with their supervisors.
+                                We'll also focus on whether the number of mental health conditions a person is diagnosed, and whether the 
+                                topic of discussion is on mental health disorders or mental health issues, has any effects on this comfort."),
+                              br(),
+                            
                             # Create sidebar layout
                             sidebarLayout(
                               
@@ -136,7 +143,29 @@ shinyUI(navbarPage('Final Project',
                               
                               # Main panel: display plotly map
                               mainPanel(
-                                plotlyOutput("DiagnosisWillingness")  
+                                plotlyOutput("DiagnosisWillingness"),
+                                hr(),
+                                p("From this dataset of about 1400 people, almost 600 people reported be currently
+                                  diagnosed with at least one mental health disorder, and about half of the people 
+                                  surveyed were diagnosed with at least one mental health disorder by a medical professional.
+                                  However, there is generally a higher number of people with 1 to 3 diagnoses as opposed to people
+                                  with 3 or more diagnoses. Therefore it cannot be concluded that there is a relationship between 
+                                  the number of diagnoses and a person's comfort speaking to a supervisor about mental health disorders
+                                  and issues."),
+                                br(),
+                                p("In the case of whether someone is comfortable with discussing based on the topic of either mental health disorders
+                                   or mental health issues, the dataset did not give a definition for what is a mental health disorder and issue.
+                                   However: "),
+                                br(),
+                                p("When asked, \"Would you feel comfortable discussing a mental health disorder with your direct supervisor(s)?\", 
+                                  a majority felt they were comfortable discussing with either \"some of their previous employers\" 
+                                  or \"none of their previous employers.\""),
+                                p("When asked, \"Would you have been willing to discuss a mental health issue with your direct supervisor(s)?\",
+                                   there's is generally a mixed distribution between the \"Yes,\" \"No,\" and \"Maybe's,\" but slight lean towards \"Yes\" and \"Maybe.\""),
+                                br(),
+                                p("Since much of the data used is qualitative data, it's difficult to judge its accuracy. However, the data still allows
+                                   for employers to have some insight on how employees feel about discussing mental health with supervisors, and how to
+                                   make the workplace a safer environment for such discussion.")
                               )
                             )
                    ),
@@ -177,7 +206,8 @@ shinyUI(navbarPage('Final Project',
                               column(12,
                                  "Talk about some sort of analysis",
                                  plotOutput('familyBreakdown'),
-                                 plotOutput('disorder')
+                                 plotOutput('disorder'),
+                                 textOutput('comfortableAnalysis')
                               )
                             )
                    ),
@@ -194,7 +224,9 @@ shinyUI(navbarPage('Final Project',
                                   inputId = 'options',
                                   label = 'Select information that you want to view',
                                   choices = c('anonymity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
-                                  selected = 'anonymity'
+                                  selected = 'anonymity',
+                                  choices = c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
+                                  selected = 'anonimity'
                                 )
                               ),
                               
@@ -203,8 +235,19 @@ shinyUI(navbarPage('Final Project',
                             ),
                             hr(),
                             h3('Analysis'),
+
                             p('test para 1'),
-                            p('test para 2')
+                            p('test para 2'),
+
+                            p('Compared to physical health, there has always been a general lack of awareness concerning mental health. 
+                               This is fairly evident from the various graphs as majority of the people, in each case, were unsure 
+                               about their mental health related privileges.'),
+                            p('Another important assessment to be made from these graphs is that there isn’t much difference in the number of 
+                               people who answered yes in the comfortability of discussing a mental health issue were almost the same as the number 
+                               of people who answered no.'),
+                            p('This means that a large population of the tech industry treats mental health as an unimportant aspect of life or doesn’t 
+                               give it enough regard as much as it does physical health.')
+
                    )
                    
 ))
