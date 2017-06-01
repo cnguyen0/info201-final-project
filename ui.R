@@ -113,21 +113,41 @@ shinyUI(navbarPage('Final Project',
                               # Main panel: display plotly map
                               mainPanel(
                                 plotlyOutput("remoteCountryPlot"),
-                                p(paste0("This plot shows mental health against different jobs and if a person works remotely or not.",
-                                         "By clicking on each point above, the x and y values will be displayed in the box."))
+                                p("This plot shows mental health against different jobs and if a person works remotely or not.
+                                         By clicking on each point above, the x and y values will be displayed in the box."),
+                                br(),
+                                h3('Analysis'),
+                                p("This dataset shows how people in the tech industry work in different environments. 
+                                  This particular visualization shows how people tend to work over age and 
+                                  especially the trends in working remotely as affected by mental health.
+                                  The scatterplot is plot with age against remotely and colored by whether 
+                                  or not a person was diagnosed with a mental health disorder. Furthermore,
+                                  to broaden our scope of analysis, I have broken it up into the country and
+                                  state in which people live and how people work in different locations." ),
+                                p("By looking at the breakdown of whether they work remotely in different locations
+                                  gives us a deeper understanding of the geographic influences that could affect
+                                  mental health and job willingness. More importantly, it opens up questions about
+                                  whether some companies have better working laws or not. This question stems from
+                                  the fact that in a country where not a lot of people work remotely yet they
+                                  have higher mental health levels--that is not a lot of red or less diagnosed
+                                  patients-- their must be some particular reason as to why the location is
+                                  a better working location, opening up a new area of research."),
+                                p("By plotting age, it also tells you around what time in life do people tend to
+                                  step away from 9 to 5 jobs and focus on working remotely."),
+                                br(),
+                                p("Most of the people responded as they work remotely sometimes. The country with the most
+                                   remote workers were in the United Kingdom or the United States. Furthermore, if data is 
+                                  zoomed into, we will notice that people are more pront to Mental Health Disorders due to the 
+                                  fact that they never work remotely. A surprising statistic was when we faceted by US State 
+                                  people work in, the most diagnosed turned out to be in the Sunny State of California. ")
+                                
                               )
                             )
+                            
                    ),
                    
-                   tabPanel('Diagnoses and Comfort Speaking',
-                            titlePanel('Diagnoses and Comfort Speaking'),
-                              
-                              p("In this dataset, we'll be looking at people who have been diagnosed or currently diagnosed with a 
-                                mental health disorder and how comfortable they are discussing about mental health with their supervisors.
-                                We'll also focus on whether the number of mental health conditions a person is diagnosed, and whether the 
-                                topic of discussion is on mental health disorders or mental health issues, has any effects on this comfort."),
-                              br(),
-                            
+                   tabPanel('Kathy',
+                            titlePanel('Number of Conditions a Worker Has and \nComfort talking to Supervisor'),
                             # Create sidebar layout
                             sidebarLayout(
                               
@@ -143,29 +163,7 @@ shinyUI(navbarPage('Final Project',
                               
                               # Main panel: display plotly map
                               mainPanel(
-                                plotlyOutput("DiagnosisWillingness"),
-                                hr(),
-                                p("From this dataset of about 1400 people, almost 600 people reported be currently
-                                  diagnosed with at least one mental health disorder, and about half of the people 
-                                  surveyed were diagnosed with at least one mental health disorder by a medical professional.
-                                  However, there is generally a higher number of people with 1 to 3 diagnoses as opposed to people
-                                  with 3 or more diagnoses. Therefore it cannot be concluded that there is a relationship between 
-                                  the number of diagnoses and a person's comfort speaking to a supervisor about mental health disorders
-                                  and issues."),
-                                br(),
-                                p("In the case of whether someone is comfortable with discussing based on the topic of either mental health disorders
-                                   or mental health issues, the dataset did not give a definition for what is a mental health disorder and issue.
-                                   However: "),
-                                br(),
-                                p("When asked, \"Would you feel comfortable discussing a mental health disorder with your direct supervisor(s)?\", 
-                                  a majority felt they were comfortable discussing with either \"some of their previous employers\" 
-                                  or \"none of their previous employers.\""),
-                                p("When asked, \"Would you have been willing to discuss a mental health issue with your direct supervisor(s)?\",
-                                   there's is generally a mixed distribution between the \"Yes,\" \"No,\" and \"Maybe's,\" but slight lean towards \"Yes\" and \"Maybe.\""),
-                                br(),
-                                p("Since much of the data used is qualitative data, it's difficult to judge its accuracy. However, the data still allows
-                                   for employers to have some insight on how employees feel about discussing mental health with supervisors, and how to
-                                   make the workplace a safer environment for such discussion.")
+                                plotlyOutput("DiagnosisWillingness")  
                               )
                             )
                    ),
@@ -206,8 +204,7 @@ shinyUI(navbarPage('Final Project',
                               column(12,
                                  "Talk about some sort of analysis",
                                  plotOutput('familyBreakdown'),
-                                 plotOutput('disorder'),
-                                 textOutput('comfortableAnalysis')
+                                 plotOutput('disorder')
                               )
                             )
                    ),
@@ -224,9 +221,7 @@ shinyUI(navbarPage('Final Project',
                                   inputId = 'options',
                                   label = 'Select information that you want to view',
                                   choices = c('anonymity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
-                                  selected = 'anonymity',
-                                  choices = c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
-                                  selected = 'anonimity'
+                                  selected = 'anonymity'
                                 )
                               ),
                               
@@ -235,19 +230,8 @@ shinyUI(navbarPage('Final Project',
                             ),
                             hr(),
                             h3('Analysis'),
-
                             p('test para 1'),
-                            p('test para 2'),
-
-                            p('Compared to physical health, there has always been a general lack of awareness concerning mental health. 
-                               This is fairly evident from the various graphs as majority of the people, in each case, were unsure 
-                               about their mental health related privileges.'),
-                            p('Another important assessment to be made from these graphs is that there isn’t much difference in the number of 
-                               people who answered yes in the comfortability of discussing a mental health issue were almost the same as the number 
-                               of people who answered no.'),
-                            p('This means that a large population of the tech industry treats mental health as an unimportant aspect of life or doesn’t 
-                               give it enough regard as much as it does physical health.')
-
+                            p('test para 2')
                    )
                    
 ))
