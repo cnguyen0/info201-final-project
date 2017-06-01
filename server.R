@@ -151,8 +151,6 @@ shinyServer(function(input, output) {
                                 on a spectrum. In addition, another important factor is to compare by ratio rather than numbers since there is a significant number
                                 of male in the workforce rather than female, which can lead to a misleading conclusion."))
   })
-  
-  output$remoteCountryPlot <- renderPlot({
 
   #Megha
   output$remoteCountryPlot <- renderPlotly({
@@ -227,4 +225,4 @@ shinyServer(function(input, output) {
     )
   })
   #End Zoheb
-
+})
