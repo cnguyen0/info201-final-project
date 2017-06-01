@@ -183,7 +183,7 @@ shinyServer(function(input, output) {
     zoheb.data <- zoheb.data %>% filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.coworkers. != '') %>%
       filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '') %>%
       filter(Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health. != '')
-    colnames(zoheb.data) <- c('coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
+    colnames(zoheb.data) <- c('coworker discussion', 'supervisor discussion', 'seriousness comparison')
     #graph formation
     types <- as.character(unique(zoheb.data[[input$options]]))
     s1 <- as.numeric(sum(zoheb.data[[input$options]] == types[1]))
@@ -191,7 +191,7 @@ shinyServer(function(input, output) {
     s3 <- as.numeric(sum(zoheb.data[[input$options]] == types[3]))
     #dynamic titles
     descriptions <- c('Do employees feel comfortable discussing a mental health disorder with their coworkers?','Do employees feel comfortable discussing a mental health disorder with their supervisor?','Do employees feel that their employer takes mental health as seriously as physical health?')
-    titles <- c('coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
+    titles <- c('coworker discussion', 'supervisor discussion', 'seriousness comparison')
     dynamic.title <- data.frame(titles, descriptions)
     #returns plot
     return(

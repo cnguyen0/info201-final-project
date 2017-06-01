@@ -26,6 +26,24 @@ shinyUI(navbarPage('Final Project',
                             
                            hr(),
                            
+                           h3("Target Audience", align = "center"),
+                           p("The target audience of our this project is human resource managers and supervisors at
+                             tech companies. Many of these supervisors may not be aware of the stigma present in their
+                             workplace around Mental health. We hope to bring light to this problem by representing
+                             the data in a fashion that is easy to share and understand.", align = "center"),
+                           
+                           hr(),
+                           
+                           h3("The Data", align = "center"),
+                           p("When working with this dataset, there was 1.4k rows and almost 50 questions. Some of the questions
+                             were free responses such as their job title and their gender. Because of the free response forms, we
+                             were limited to the data that was given to us. For some of our analysis, we had to break the data
+                             further down and make assumptions or limitations to our analysis. For example, when given gender,
+                             additional computation had to be made in order to group the genders together.", align = "center"),
+                           p("There was also problems with finding the number of conditions. The dataset varied a lot with how 
+                             as the conditions were described and were listed out in one string, per observation, which made 
+                             it difficult to isolate each condition to count.", align = "center"),
+                           
                            #Meet the Team
                            h3("Meet the Team", align = "center"),
                            h4(a("Our Github", href = "https://github.com/cnguyen0/info201-final-project"), align = "center"),
@@ -139,7 +157,14 @@ shinyUI(navbarPage('Final Project',
                                    remote workers were in the United Kingdom or the United States. Furthermore, if data is 
                                   zoomed into, we will notice that people are more pront to Mental Health Disorders due to the 
                                   fact that they never work remotely. A surprising statistic was when we faceted by US State 
-                                  people work in, the most diagnosed turned out to be in the Sunny State of California. ")
+                                  people work in, the most diagnosed turned out to be in the Sunny State of California. This is 
+                                  also due to the fact that Silicon Valley is in California and given that it is a self reported
+                                   data set, there are more identified issues in that subregion. However during the plotting of the 
+                                  graphs, something that was not taken into account was the population levels of the state. Therefore 
+                                  this leaves room for future research and a more narrowed focus on what other factors lead to mental 
+                                  health issues and stigmas. Some of these are discussed in the following ages such as family history, 
+                                  workplace stigma and willingness to disclose diagnosis given that a person works remotely.")
+                                
                                 
                               )
                             )
@@ -170,6 +195,7 @@ shinyUI(navbarPage('Final Project',
                               mainPanel(
                                 plotlyOutput("DiagnosisWillingness"),
                                 hr(),
+                                h3('Analysis'),
                                 p("From this dataset of about 1400 people, almost 600 people reported be currently
                                 diagnosed with at least one mental health disorder, and about half of the people 
                                 surveyed were diagnosed with at least one mental health disorder by a medical professional.
@@ -228,6 +254,8 @@ shinyUI(navbarPage('Final Project',
                            ),
                            fluidRow(
                              column(12,
+                                    hr(),
+                                    h3("Analysis"),
                                     textOutput('comfortableAnalysis')
                              )
                            )
@@ -244,7 +272,7 @@ shinyUI(navbarPage('Final Project',
                                 selectInput(
                                   inputId = 'options',
                                   label = 'Select information that you want to view',
-                                  choices = c('coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
+                                  choices = c('coworker discussion', 'supervisor discussion', 'seriousness comparison'),
                                   selected = 'anonymity'
                                 )
                               ),
