@@ -5,7 +5,6 @@ library(ggplot2)
 library(plotly)
 
 
-
 data <- read.csv('./Data/mental-heath-in-tech-2016.csv', stringsAsFactors = FALSE)
 source("./scripts/DiagnosisWillingness.R")
 
@@ -54,18 +53,6 @@ shinyServer(function(input, output) {
     
     impact.level <- data[,11:12]
     impact.level.num <- count.responses(impact.level)
-    
-    #Creating functions for each plot
-    # negative.impact <- function(data.input) {
-    #   ggplot(data = data.input) + 
-    #     geom_bar(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
-    #     ggtitle("Do you think that discussing this health issue will have negative consequences?") +
-    #     labs(x = "Mental Health",
-    #          y = "Physical Health", color = "Responses") +
-    #     theme_classic() +
-    #     xlim(0, 1000) +
-    #     ylim(0, 1000)
-    # }
     
     interview <- data.frame(data[,41], data[,39])
     interview.num <- count.responses(interview)
@@ -124,6 +111,22 @@ shinyServer(function(input, output) {
       labs(x = x.axis.lab, y = "Count") + ggtitle("Breaking Down Questions of Answers of Those Who Has a Family History of Mental Illnesses")
   })
   
+  # Breaking down  
+  output$familyBreakdown <- renderPlot({
+    not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
+      filter(What.is.your.age. < 70) %>%
+      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
+    ggplot(data = not.comfortable, aes(What.is.your.gender.)) + geom_bar()
+  })
+  
+  output$disorder <- renderPlot({
+    has.family.history <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes')
+    ggplot(data = has.family.history, aes(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..)) + geom_bar()
+    
+    ggplot(data = has.family.history, aes_string(input$categories)) + geom_bar() + 
+      labs(x = x.axis.lab, y = "Count") + ggtitle("Breaking Down Questions of Answers of Those Who Has a Family History of Mental Illnesses")
+  })
+  
   output$comfortableAnalysis <- renderText({
     not.comfortable <- data %>% filter(Do.you.have.a.family.history.of.mental.illness. == 'Yes') %>%
       filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '' || Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != 'Yes' )
@@ -150,24 +153,33 @@ shinyServer(function(input, output) {
   })
   
   output$remoteCountryPlot <- renderPlot({
+
+  #Megha
+  output$remoteCountryPlot <- renderPlotly({
     
-    filtered <- reactive({
-      megha <- data %>% select(contains("remotely"), "Do.you.currently.have.a.mental.health.disorder.",
-                               "Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional.", 
-                               contains("age"), contains("country"), contains("US.state.or.territory")) %>%
-                colnames(c("remotely", "currently_have", "diagnosed", "age", "country_live", "country_work", "state_live", "state_work"))
+    relevant <- reactive({
+      megha <- data %>% select(Do.you.work.remotely., Do.you.currently.have.a.mental.health.disorder.,
+                               Have.you.been.diagnosed.with.a.mental.health.condition.by.a.medical.professional., 
+                               What.is.your.age., contains("country"), contains("US.state.or.territory"))
+      colnames(megha) <- c("remotely", "currently_have", "diagnosed", "age", "country_live", "country_work", "state_live", "state_work")
+      
+      megha <- filter(megha, age < 100)
+      
       return(megha)
     })
     
-    p <- ggplot(data = filtered, 
+    p <- ggplot(data = relevant(), 
                 mapping = aes(x = remotely, 
-                              y = currently_have, 
-                              label = name, 
-                              color = diagnosed)) +
-      geom_point() +
+                              y = age, 
+                              color= diagnosed)) +
+      geom_point(position ="jitter") +
       facet_wrap(input$facet.by) +
-      ggtitle("Working Remotely vs. Mental Health")
+      labs(title ="Age vs. Working Remotely, identified by diagnosis",
+           x = "Working Remotely",
+           y = "Age")+
+      guides(fill=guide_legend(title="Diagnosed"))
     
+    p <- ggplotly(p) %>% layout(height = input$plotHeight, autosize=TRUE)
     return(p)
   })
   
@@ -215,5 +227,4 @@ shinyServer(function(input, output) {
     )
   })
   #End Zoheb
-  
-})
+
