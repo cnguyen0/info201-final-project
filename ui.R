@@ -244,7 +244,7 @@ shinyUI(navbarPage('Final Project',
                                 selectInput(
                                   inputId = 'options',
                                   label = 'Select information that you want to view',
-                                  choices = c('anonymity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
+                                  choices = c('coworker_discussion', 'supervisor_discussion', 'seriousness_comparison'),
                                   selected = 'anonymity'
                                 )
                               ),
@@ -254,8 +254,9 @@ shinyUI(navbarPage('Final Project',
                             ),
                             hr(),
                             h3('Analysis'),
-                            p('test para 1'),
-                            p('test para 2')
+                            p('Analysis of the various graphs show that majority of the people employed in the tech industry are unsure of their mental health related privileges and are hesitant to use/gain more information about them.'),
+                            p('Another important inference to be made is that the number of people who voted yes for comfortability in discussing their mental health issues is about the same as the number of people who voted no.'),
+                            p('This clearly points to a lack of regard for the importance of mental health and that people still refuse to consider mental health as seriously as physical health.')
                    )
                    
 ))
