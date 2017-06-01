@@ -176,24 +176,22 @@ shinyServer(function(input, output) {
     
     #columns included : is your anonimity protected, Would you feel comfortable discussing a mental health disorder with your coworkers?, 
     #Would you feel comfortable discussing a mental health disorder with your direct supervisor(s)?, Do you feel that your employer takes mental health as seriously as physical health?
-    zoheb.data <- data %>% select(  Is.your.anonymity.protected.if.you.choose.to.take.advantage.of.mental.health.or.substance.abuse.treatment.resources.provided.by.your.employer.,
-                                    Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.coworkers.,
+    zoheb.data <- data %>% select(  Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.coworkers.,
                                     Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s..,
                                     Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health.
     )
-    zoheb.data <- zoheb.data %>% filter(Is.your.anonymity.protected.if.you.choose.to.take.advantage.of.mental.health.or.substance.abuse.treatment.resources.provided.by.your.employer. != '') %>%
-      filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.coworkers. != '') %>%
+    zoheb.data <- zoheb.data %>% filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.coworkers. != '') %>%
       filter(Would.you.feel.comfortable.discussing.a.mental.health.disorder.with.your.direct.supervisor.s.. != '') %>%
       filter(Do.you.feel.that.your.employer.takes.mental.health.as.seriously.as.physical.health. != '')
-    colnames(zoheb.data) <- c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
+    colnames(zoheb.data) <- c('coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
     #graph formation
     types <- as.character(unique(zoheb.data[[input$options]]))
     s1 <- as.numeric(sum(zoheb.data[[input$options]] == types[1]))
     s2 <- as.numeric(sum(zoheb.data[[input$options]] == types[2]))
     s3 <- as.numeric(sum(zoheb.data[[input$options]] == types[3]))
     #dynamic titles
-    descriptions <- c('Is an employee\'s anonimity protected if they choose to take advantage of a mental helth treatment?','Do employees feel comfortable discussing a mental health disorder with their coworkers?','Do employees feel comfortable discussing a mental health disorder with their supervisor?','Do employees feel that their employer takes mental health as seriously as physical health?')
-    titles <- c('anonimity', 'coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
+    descriptions <- c('Do employees feel comfortable discussing a mental health disorder with their coworkers?','Do employees feel comfortable discussing a mental health disorder with their supervisor?','Do employees feel that their employer takes mental health as seriously as physical health?')
+    titles <- c('coworker_discussion', 'supervisor_discussion', 'seriousness_comparison')
     dynamic.title <- data.frame(titles, descriptions)
     #returns plot
     return(
