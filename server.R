@@ -54,18 +54,6 @@ shinyServer(function(input, output) {
     impact.level <- data[,11:12]
     impact.level.num <- count.responses(impact.level)
     
-    #Creating functions for each plot
-    # negative.impact <- function(data.input) {
-    #   ggplot(data = data.input) + 
-    #     geom_bar(mapping = aes(x=mental, y = physical, color = responses), size = 3) +
-    #     ggtitle("Do you think that discussing this health issue will have negative consequences?") +
-    #     labs(x = "Mental Health",
-    #          y = "Physical Health", color = "Responses") +
-    #     theme_classic() +
-    #     xlim(0, 1000) +
-    #     ylim(0, 1000)
-    # }
-    
     interview <- data.frame(data[,41], data[,39])
     interview.num <- count.responses(interview)
     
